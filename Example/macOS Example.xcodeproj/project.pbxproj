@@ -120,8 +120,8 @@
 			children = (
 				D42A52511E2EA25F005817E1 /* AppDelegate.swift */,
 				D42A52521E2EA25F005817E1 /* ViewController.swift */,
-				D42A52501E2EA254005817E1 /* Supporting Files */,
 				D4721B7D1E2EA5FF00B717DC /* MKView.swift */,
+				D42A52501E2EA254005817E1 /* Supporting Files */,
 			);
 			path = Source;
 			sourceTree = "<group>";

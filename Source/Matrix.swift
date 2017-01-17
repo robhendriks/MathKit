@@ -6,6 +6,24 @@
 //  Copyright © 2017 Rob Hendriks. All rights reserved.
 //
 
-public class Matrix {
+public struct Matrix {
+    
+    private(set) public var array: [[Int]]!
+    
+    public init() {
+        
+    }
+    
+    public init(matrix: Matrix) {
+        
+    }
+    
+}
+
+extension Matrix: CustomStringConvertible {
+    
+    public var description: String {
+        return "Matrix()"
+    }
     
 }

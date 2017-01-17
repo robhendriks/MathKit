@@ -13,13 +13,6 @@ class ViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let a = Vector(10, 10, 10)
-        let b = Vector(1, 2, 3)
-        let c = a * b
-        
-        print(a, b, c)
-        
     }
 
     override var representedObject: Any? {
