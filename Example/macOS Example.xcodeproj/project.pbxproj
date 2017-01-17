@@ -13,6 +13,7 @@
 		D42A52671E2EA2E3005817E1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D42A52651E2EA2E3005817E1 /* Main.storyboard */; };
 		D42A52861E2EA438005817E1 /* MathKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D42A52771E2EA36F005817E1 /* MathKit.framework */; };
 		D42A52871E2EA438005817E1 /* MathKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D42A52771E2EA36F005817E1 /* MathKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D4721B7E1E2EA5FF00B717DC /* MKView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4721B7D1E2EA5FF00B717DC /* MKView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +83,7 @@
 		D42A52571E2EA26D005817E1 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Resources/Info.plist; sourceTree = SOURCE_ROOT; };
 		D42A52661E2EA2E3005817E1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Main.storyboard; sourceTree = "<group>"; };
 		D42A526F1E2EA36F005817E1 /* MathKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MathKit.xcodeproj; path = ../MathKit.xcodeproj; sourceTree = "<group>"; };
+		D4721B7D1E2EA5FF00B717DC /* MKView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +121,7 @@
 				D42A52511E2EA25F005817E1 /* AppDelegate.swift */,
 				D42A52521E2EA25F005817E1 /* ViewController.swift */,
 				D42A52501E2EA254005817E1 /* Supporting Files */,
+				D4721B7D1E2EA5FF00B717DC /* MKView.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -268,6 +271,7 @@
 			files = (
 				D42A52541E2EA25F005817E1 /* ViewController.swift in Sources */,
 				D42A52531E2EA25F005817E1 /* AppDelegate.swift in Sources */,
+				D4721B7E1E2EA5FF00B717DC /* MKView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
