@@ -19,7 +19,7 @@ class MKView: NSView {
     var camera: MKCamera
     
     var keys = [UInt16: Bool]()
-    var speed = Vector()
+    var move = Vector()
     
     override var acceptsFirstResponder: Bool {
         return true
@@ -74,40 +74,41 @@ class MKView: NSView {
         cube = MKGeometry.fromFile(Bundle.main.path(forResource: name, ofType: "txt")!)!
         cube.translate(-25, -33, -100)
         
-        speed = Vector.zero
+        move = Vector.zero
         
         setNeedsDisplay(bounds)
     }
     
     func update() {
         if let _ = keys[2] {
-            speed.x = 2
+            move.x = 2
         } else if let _ = keys[0] {
-            speed.x = -2
+            move.x = -2
         } else {
-            speed.x = 0
+            move.x = 0
         }
         
         if let _ = keys[13] {
-            speed.y = 2
+            move.y = 2
         } else if let _ = keys[1] {
-            speed.y = -2
+            move.y = -2
         } else {
-            speed.y = 0
+            move.y = 0
         }
         
         if let _ = keys[12] {
-            speed.z = 2
+            move.z = 2
         } else if let _ = keys[14] {
-            speed.z = -2
+            move.z = -2
         } else {
-            speed.z = 0
+            move.z = 0
         }
         
-        if speed.x != 0 || speed.y != 0 || speed.z != 0 {
-            cube.translate(speed)
-            setNeedsDisplay(bounds)
+        if move.x != 0 || move.y != 0 || move.z != 0 {
+            cube.translate(move)
         }
+        
+        setNeedsDisplay(bounds)
     }
     
     func drawFace(_ points: [Vector], _ color: NSColor?) {

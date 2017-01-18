@@ -65,7 +65,7 @@ public struct Matrix {
         }
     }
     
-    public func translate(_ args: Double...) -> Matrix {
+    public func getTranslation(_ args: [Double]) -> Matrix {
         assert(args.count == columns - 1)
         
         let size = args.count
@@ -81,10 +81,10 @@ public struct Matrix {
             translationMatrix[size, i] = args[i]
         }
         
-        return self * translationMatrix
+        return translationMatrix
     }
 
-    public func scale(_ args: Double...) -> Matrix {
+    public func getScaling(_ args: [Double]) -> Matrix {
         assert(args.count == columns - 1)
         
         let size = args.count
@@ -104,7 +104,15 @@ public struct Matrix {
             }
         }
         
-        return self * scaleMatrix
+        return scaleMatrix
+    }
+    
+    public func translate(_ args: Double...) -> Matrix {
+        return self * getTranslation(args)
+    }
+    
+    public func scale(_ args: Double...) -> Matrix {
+        return self * getScaling(args)
     }
     
     public func getRotationX(_ angle: Double) -> Matrix {
@@ -150,6 +158,49 @@ public struct Matrix {
     
     public func rotateZ(_ angle: Double) -> Matrix {
         return self * getRotationZ(angle)
+    }
+    
+    public func rotate(_ origin: Vector, _ axis: Vector, _ angle: Double) -> Matrix {
+        let neg = origin.negate
+        let a = axis - origin
+        
+        let t1 = atan2(a.z, a.x)
+        let t2 = atan2(a.y, sqrt(pow(a.x, 2) + pow(a.z, 2)))
+        
+        let m7 = getTranslation([origin.x, origin.y, origin.z])
+        
+        let m6 = Matrix([
+            [cos(t1), -sin(t1), 0, 0],
+            [0, 1, 0, 0],
+            [sin(t1), cos(t1), 0, 0],
+            [0, 0, 0, 1]
+            ])
+        
+        let m5 = Matrix([
+            [cos(t2), -sin(t2), 0, 0],
+            [sin(t2), cos(t2), 0, 0],
+            [0, 0, 1, 0],
+            [0, 0, 0, 1]
+        ])
+        
+        let m3 = Matrix([
+            [cos(t2), sin(t2), 0, 0],
+            [-sin(t2), cos(t2), 0, 0],
+            [0, 0, 1, 0],
+            [0, 0, 0, 1]
+        ])
+        
+        let m2 = Matrix([
+            [cos(t1), sin(t1), 0, 0],
+            [0, 1, 0, 0],
+            [-sin(t1), cos(t1), 0, 0],
+            [0, 0, 0, 1]
+        ])
+        
+        let m1 = getTranslation([neg.x, neg.y, neg.z])
+        let rot = getRotationX(angle)
+        
+        return m1 * m2 * m3 * rot * m5 * m6 * m7
     }
     
 }

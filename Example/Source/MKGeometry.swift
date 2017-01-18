@@ -62,6 +62,11 @@ struct MKGeometry {
         return self
     }
     
+    public mutating func rotate(_ origin: Vector, _ axis: Vector, _ angle: Double) -> MKGeometry {
+        matrix = matrix * matrix.rotate(origin, axis, angle)
+        return self
+    }
+    
     public static func fromFile(_ path: String) -> MKGeometry? {
         do {
             let data = try String(contentsOfFile: path)

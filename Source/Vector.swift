@@ -24,6 +24,10 @@ public struct Vector {
         return Vector(x / l, y / l, z / l)
     }
     
+    public var negate: Vector {
+        return Vector(-x, -y, -z)
+    }
+    
     public init(_ x: Double, _ y: Double, _ z: Double) {
         self.x = x
         self.y = y
