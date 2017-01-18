@@ -52,6 +52,46 @@ public struct Matrix {
         }
     }
     
+    public func translate(_ args: Double...) -> Matrix {
+        let size = args.count
+        var translationMatrix = Matrix(size + 1, size + 1)
+        
+        for i in 0..<translationMatrix.rows {
+            for j in 0..<translationMatrix.columns {
+                translationMatrix[i, j] = (j == i ? 1 : 0)
+            }
+        }
+        
+        for i in 0..<size {
+            translationMatrix[size, i] = args[i]
+        }
+        
+        print(translationMatrix)
+        
+        return self * translationMatrix
+    }
+
+    public func scale(_ args: Double...) -> Matrix {
+        let size = args.count
+        var scaleMatrix = Matrix(size + 1, size + 1)
+        
+        for i in 0..<scaleMatrix.rows {
+            for j in 0..<scaleMatrix.columns {
+                if j == i {
+                    if i < size {
+                        scaleMatrix[i, j] = args[i];
+                    } else {
+                        scaleMatrix[i, j] = 1;
+                    }
+                } else {
+                    scaleMatrix[i, j] = 0
+                }
+            }
+        }
+        
+        return self * scaleMatrix
+    }
+    
 }
 
 extension Matrix: CustomStringConvertible {
