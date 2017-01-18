@@ -146,13 +146,13 @@
 		D42A52501E2EA254005817E1 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				D423FAD21E2F32CA00BC5CAE /* Plane.txt */,
 				D42A52641E2EA2E3005817E1 /* Base.lproj */,
 				D42A52551E2EA26D005817E1 /* Assets.xcassets */,
 				D42A52571E2EA26D005817E1 /* Info.plist */,
 				D4925A671E2F0ACB00F134AA /* Cube.txt */,
 				D432DD971E2F2E7D00D669DD /* Pyramid.txt */,
 				D432DD9B1E2F2FDC00D669DD /* Prism.txt */,
+				D423FAD21E2F32CA00BC5CAE /* Plane.txt */,
 			);
 			name = "Supporting Files";
 			path = ../Resources;
