@@ -87,7 +87,7 @@ class MKCamera {
         ])
         
 //        DEBUG
-        print(matrix)
-        print(projection)
+//        print(matrix)
+//        print(projection)
     }
 }

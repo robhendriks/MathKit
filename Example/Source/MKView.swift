@@ -27,13 +27,14 @@ class MKView: NSView {
     
     required init?(coder: NSCoder) {
         cube = MKGeometry.fromFile(Bundle.main.path(forResource: "Cube", ofType: "txt")!)!
-        cube.translate(-25, -33, -100)
+//        cube.translate(-25, -33, -100)
+        cube.rotate(Vector(0, 0, 1), Vector(25, 25, -25), 0)
         
         camera = MKCamera(Vector(0, 0, 10), Vector(0, 0, 0))
     
         super.init(coder: coder)
         
-        Timer.scheduledTimer(withTimeInterval: 1000.0 / 60.0 / 1000.0, repeats: true) { timer in
+        Timer.scheduledTimer(withTimeInterval: 1000.0 / 30.0 / 1000.0, repeats: true) { timer in
             self.update()
         }
     }

@@ -116,7 +116,7 @@ public struct Matrix {
     }
     
     public func getRotationX(_ angle: Double) -> Matrix {
-        let a = (M_PI / 180.0) * angle
+        let a = angle * .pi / 180.0
     
         return Matrix([
             [1, 0, 0, 0],
@@ -127,7 +127,7 @@ public struct Matrix {
     }
     
     public func getRotationY(_ angle: Double) -> Matrix {
-        let a = (M_PI / 180.0) * angle
+        let a = angle * .pi / 180.0
         
         return Matrix([
             [cos(a), 0, -sin(a), 0],
@@ -138,7 +138,7 @@ public struct Matrix {
     }
     
     public func getRotationZ(_ angle: Double) -> Matrix {
-        let a = (M_PI / 180.0) * angle
+        let a = angle * .pi / 180.0
         
         return Matrix([
             [cos(a), -sin(a), 0, 0],
@@ -161,13 +161,10 @@ public struct Matrix {
     }
     
     public func rotate(_ origin: Vector, _ axis: Vector, _ angle: Double) -> Matrix {
-        let neg = origin.negate
-        let a = axis - origin
+        let p = origin.negate
         
-        let t1 = atan2(a.z, a.x)
-        let t2 = atan2(a.y, sqrt(pow(a.x, 2) + pow(a.z, 2)))
-        
-        let m7 = getTranslation([origin.x, origin.y, origin.z])
+        let t1 = atan2(axis.z, axis.x)
+        let t2 = atan2(axis.y, sqrt(pow(axis.x, 2) + pow(axis.z, 2)))
         
         let m6 = Matrix([
             [cos(t1), -sin(t1), 0, 0],
@@ -183,6 +180,8 @@ public struct Matrix {
             [0, 0, 0, 1]
         ])
         
+        let m4 = getRotationX(angle)
+        
         let m3 = Matrix([
             [cos(t2), sin(t2), 0, 0],
             [-sin(t2), cos(t2), 0, 0],
@@ -197,10 +196,13 @@ public struct Matrix {
             [0, 0, 0, 1]
         ])
         
-        let m1 = getTranslation([neg.x, neg.y, neg.z])
-        let rot = getRotationX(angle)
+        let m7 = getTranslation([origin.x, origin.y, origin.z])
+        let m1 = getTranslation([p.x, p.y, p.z])
         
-        return m1 * m2 * m3 * rot * m5 * m6 * m7
+        print(m7)
+        print(m1)
+        
+        return m7 * m6 * m5 * m4 * m3 * m2 * m1
     }
     
 }
