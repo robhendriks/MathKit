@@ -11,12 +11,22 @@ import XCTest
 
 class MatrixTestCase: XCTestCase {
     
-    func testExample() {
-        let m = Matrix([
+    func testMultiply() {
+        let a = Matrix([
             [0, 3, 5],
             [5, 5, 2]
         ])
-        print(m.array)
+        let b = Matrix([
+            [3, 4],
+            [3, -2],
+            [4, -2]
+        ])
+        let c = a * b
+        
+        XCTAssertEqual(c[0,0], 29)
+        XCTAssertEqual(c[0,1], -16)
+        XCTAssertEqual(c[1,0], 38)
+        XCTAssertEqual(c[1,1], 6)
     }
     
 }

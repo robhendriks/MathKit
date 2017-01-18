@@ -13,24 +13,6 @@ class ViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        var a = Matrix([
-            [10, 10, 10, 1],
-            [10, 10, 10, 1],
-            [10, 10, 10, 1],
-            [10, 10, 10, 1]
-        ])
-        var b = Matrix([
-            [1, 0, 0, 0],
-            [0, 1, 0, 0],
-            [0, 0, 1, 0],
-            [0, 0, 0, 1]
-        ])
-        
-        b *= a
-        
-        print(a)
-        print(b)
     }
 
     override var representedObject: Any? {
