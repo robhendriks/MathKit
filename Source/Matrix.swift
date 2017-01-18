@@ -13,6 +13,32 @@ public struct Matrix {
     private(set) public var rows: Int
     private(set) public var array: [Double]
     
+    public var center: Vector {
+        assert(columns >= 4)
+        assert(rows >= 1)
+        
+        var minX = DBL_MAX
+        var minY = DBL_MAX
+        var minZ = DBL_MAX
+        
+        var maxX = DBL_MIN
+        var maxY = DBL_MIN
+        var maxZ = DBL_MIN
+        
+        for i in 0..<rows {
+            minX = (self[i, 0] < minX) ? self[i, 0] : minX
+            maxX = (self[i, 0] > maxX) ? self[i, 0] : maxX
+            
+            minY = (self[i, 1] < minY) ? self[i, 1] : minY
+            maxY = (self[i, 1] > maxY) ? self[i, 1] : maxY
+            
+            minZ = (self[i, 2] < minZ) ? self[i, 2] : minZ
+            maxZ = (self[i, 2] > maxZ) ? self[i, 2] : maxZ
+        }
+        
+        return Vector((maxX + minX) / 2.0, (maxY + minY) / 2.0, (maxZ + minZ) / 2.0)
+    }
+    
     public init(_ columns: Int, _ rows: Int) {
         self.size = columns * rows
         self.columns = columns
@@ -83,7 +109,7 @@ public struct Matrix {
         
         return translationMatrix
     }
-
+    
     public func getScaling(_ args: [Double]) -> Matrix {
         assert(args.count == columns - 1)
         
@@ -117,13 +143,13 @@ public struct Matrix {
     
     public func getRotationX(_ angle: Double) -> Matrix {
         let a = angle * .pi / 180.0
-    
+        
         return Matrix([
             [1, 0, 0, 0],
             [0, cos(a), -sin(a), 0],
             [0, sin(a), cos(a), 0],
             [0, 0, 0, 1]
-        ])
+            ])
     }
     
     public func getRotationY(_ angle: Double) -> Matrix {
@@ -134,7 +160,7 @@ public struct Matrix {
             [0, 1, 0, 0],
             [sin(a), 0, cos(a), 0],
             [0, 0, 0, 1]
-        ])
+            ])
     }
     
     public func getRotationZ(_ angle: Double) -> Matrix {
@@ -145,7 +171,7 @@ public struct Matrix {
             [sin(a), cos(a), 0, 0],
             [0, 0, 1, 0],
             [0, 0, 0, 1]
-        ])
+            ])
     }
     
     public func rotateX(_ angle: Double) -> Matrix {
@@ -163,13 +189,14 @@ public struct Matrix {
     public func rotate(_ origin: Vector, _ axis: Vector, _ angle: Double) -> Matrix {
         let p = origin.negate
         
-        let t1 = atan2(axis.z, axis.x)
-        let t2 = atan2(axis.y, sqrt(pow(axis.x, 2) + pow(axis.z, 2)))
+        let cAxis = axis - origin
+        let t1 = atan2(cAxis.z, cAxis.x)
+        let t2 = atan2(cAxis.y, sqrt(pow(cAxis.x, 2) + pow(cAxis.z, 2)))
         
         let m6 = Matrix([
             [cos(t1), -sin(t1), 0, 0],
             [0, 1, 0, 0],
-            [sin(t1), cos(t1), 0, 0],
+            [sin(t1), cos(t1), 1, 0],
             [0, 0, 0, 1]
             ])
         
@@ -178,7 +205,7 @@ public struct Matrix {
             [sin(t2), cos(t2), 0, 0],
             [0, 0, 1, 0],
             [0, 0, 0, 1]
-        ])
+            ])
         
         let m4 = getRotationX(angle)
         
@@ -187,24 +214,20 @@ public struct Matrix {
             [-sin(t2), cos(t2), 0, 0],
             [0, 0, 1, 0],
             [0, 0, 0, 1]
-        ])
+            ])
         
         let m2 = Matrix([
             [cos(t1), sin(t1), 0, 0],
             [0, 1, 0, 0],
-            [-sin(t1), cos(t1), 0, 0],
+            [-sin(t1), cos(t1), 1, 0],
             [0, 0, 0, 1]
-        ])
+            ])
         
         let m7 = getTranslation([origin.x, origin.y, origin.z])
         let m1 = getTranslation([p.x, p.y, p.z])
         
-        print(m7)
-        print(m1)
-        
-        return m7 * m6 * m5 * m4 * m3 * m2 * m1
+        return m1 * (m2 * (m3 * (m4 * (m5 * (m6 * m7)))))
     }
-    
 }
 
 extension Matrix: CustomStringConvertible {

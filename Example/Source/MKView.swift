@@ -15,24 +15,22 @@ class MKView: NSView {
     static let cubeStroke = NSColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
     static let cubeFill = NSColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.1)
     
-    var cube: MKGeometry
+    var cube: MKGeometry!
     var camera: MKCamera
     
     var keys = [UInt16: Bool]()
-    var move = Vector()
+    var move = Vector.zero
+    var rotate = Vector.zero
     
     override var acceptsFirstResponder: Bool {
         return true
     }
     
     required init?(coder: NSCoder) {
-        cube = MKGeometry.fromFile(Bundle.main.path(forResource: "Cube", ofType: "txt")!)!
-//        cube.translate(-25, -33, -100)
-        cube.rotate(Vector(0, 0, 1), Vector(25, 25, -25), 0)
-        
         camera = MKCamera(Vector(0, 0, 10), Vector(0, 0, 0))
-    
         super.init(coder: coder)
+        
+        load("Cube")
         
         Timer.scheduledTimer(withTimeInterval: 1000.0 / 30.0 / 1000.0, repeats: true) { timer in
             self.update()
@@ -73,9 +71,14 @@ class MKView: NSView {
     
     public func load(_ name: String) {
         cube = MKGeometry.fromFile(Bundle.main.path(forResource: name, ofType: "txt")!)!
-        cube.translate(-25, -33, -100)
+        
+        let center = cube.matrix.center
+        cube.translate(-center.x, -center.y, center.z)
         
         move = Vector.zero
+        rotate = Vector.zero
+        
+        keys.removeAll(keepingCapacity: false)
         
         setNeedsDisplay(bounds)
     }
@@ -105,8 +108,27 @@ class MKView: NSView {
             move.z = 0
         }
         
+        if let _ = keys[123] {
+            rotate.y = 1
+        } else if let _ = keys[124] {
+            rotate.y = -1
+        } else {
+            rotate.y = 0
+        }
+        
+        if let _ = keys[126] {
+            rotate.z = 1
+        } else if let _ = keys[125] {
+            rotate.z = -1
+        } else {
+            rotate.z = 0
+        }
+        
         if move.x != 0 || move.y != 0 || move.z != 0 {
             cube.translate(move)
+        }
+        if rotate.x != 0 || rotate.y != 0 || rotate.z != 0 {
+//            cube.rotate(cube.matrix.center, Vector(0, 0, 1), 0.0001)
         }
         
         setNeedsDisplay(bounds)
