@@ -71,7 +71,12 @@ class MKView: NSView {
     }
     
     public func load(_ name: String) {
+        cube = MKGeometry.fromFile(Bundle.main.path(forResource: name, ofType: "txt")!)!
+        cube.translate(-50, -50, -100)
         
+        speed = Vector.zero
+        
+        setNeedsDisplay(bounds)
     }
     
     func update() {

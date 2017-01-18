@@ -9,6 +9,7 @@
 public struct Vector {
     
     public static let up = Vector(0, 1, 0)
+    public static let zero = Vector(0, 0, 0)
     
     public var x = 0.0
     public var y = 0.0
