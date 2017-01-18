@@ -60,10 +60,10 @@ struct MKGeometry {
                 continue
             } else if parts.count == 4 && parts[0] == "v" {
                 vertices.append(Vector(Double(parts[1])!, Double(parts[2])!, Double(parts[3])!))
-            } else if parts.count == 5 && parts[0] == "f" {
+            } else if parts.count >= 4 && parts[0] == "f" {
                 var face = [Int]()
                 
-                for i in 1..<5 {
+                for i in 1..<parts.count {
                     let part = parts[i]
                     let index = part.index(part.startIndex, offsetBy: 1)
                     let str = part.substring(from: index)
