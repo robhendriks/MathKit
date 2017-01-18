@@ -8,6 +8,8 @@
 
 public struct Vector {
     
+    public static let up = Vector(0, 1, 0)
+    
     public var x = 0.0
     public var y = 0.0
     public var z = 0.0
@@ -27,8 +29,12 @@ public struct Vector {
         self.z = z
     }
     
-    init(_ vector: Vector) {
+    public init(_ vector: Vector) {
         self.init(vector.x, vector.y, vector.z)
+    }
+    
+    public init() {
+        self.init(0.0, 0.0, 0.0)
     }
     
     public static func dot(_ a: Vector, _ b: Vector) -> Double {

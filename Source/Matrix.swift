@@ -43,6 +43,19 @@ public struct Matrix {
         }
     }
     
+    public subscript(row: Int) -> [Double] {
+        get {
+            let start = row * columns
+            return Array(array[start..<start + columns])
+        }
+        set {
+            let start = row * columns
+            for i in start..<start + columns {
+                array[i] = newValue[i]
+            }
+        }
+    }
+    
     public subscript(row: Int, column: Int) -> Double {
         get {
             return array[row * columns + column]
@@ -53,6 +66,8 @@ public struct Matrix {
     }
     
     public func translate(_ args: Double...) -> Matrix {
+        assert(args.count == columns - 1)
+        
         let size = args.count
         var translationMatrix = Matrix(size + 1, size + 1)
         
@@ -66,12 +81,12 @@ public struct Matrix {
             translationMatrix[size, i] = args[i]
         }
         
-        print(translationMatrix)
-        
         return self * translationMatrix
     }
 
     public func scale(_ args: Double...) -> Matrix {
+        assert(args.count == columns - 1)
+        
         let size = args.count
         var scaleMatrix = Matrix(size + 1, size + 1)
         

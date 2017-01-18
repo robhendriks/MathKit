@@ -11,6 +11,8 @@ import MathKit
 
 class ViewController: NSViewController {
 
+    @IBOutlet weak var theView: MKView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -19,6 +21,11 @@ class ViewController: NSViewController {
         didSet {
         }
     }
+    
+    func keyDown(keyCode: UInt16) {
+        theView.keyDown(keyCode: keyCode)
+    }
+    
 
 }
 
