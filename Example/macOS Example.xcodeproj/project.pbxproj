@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D423FAD31E2F32CA00BC5CAE /* Plane.txt in Resources */ = {isa = PBXBuildFile; fileRef = D423FAD21E2F32CA00BC5CAE /* Plane.txt */; };
 		D42A52531E2EA25F005817E1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42A52511E2EA25F005817E1 /* AppDelegate.swift */; };
 		D42A52541E2EA25F005817E1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42A52521E2EA25F005817E1 /* ViewController.swift */; };
 		D42A52581E2EA26D005817E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D42A52551E2EA26D005817E1 /* Assets.xcassets */; };
@@ -16,7 +17,6 @@
 		D432DD961E2F1A3A00D669DD /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = D432DD951E2F1A3900D669DD /* Window.swift */; };
 		D432DD981E2F2E7D00D669DD /* Pyramid.txt in Resources */ = {isa = PBXBuildFile; fileRef = D432DD971E2F2E7D00D669DD /* Pyramid.txt */; };
 		D432DD9C1E2F2FDC00D669DD /* Prism.txt in Resources */ = {isa = PBXBuildFile; fileRef = D432DD9B1E2F2FDC00D669DD /* Prism.txt */; };
-		D432DD9E1E2F313400D669DD /* Plane.txt in Resources */ = {isa = PBXBuildFile; fileRef = D432DD9D1E2F313400D669DD /* Plane.txt */; };
 		D4721B7E1E2EA5FF00B717DC /* MKView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4721B7D1E2EA5FF00B717DC /* MKView.swift */; };
 		D4925A631E2F035F00F134AA /* MKCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4925A621E2F035F00F134AA /* MKCamera.swift */; };
 		D4925A681E2F0ACB00F134AA /* Cube.txt in Resources */ = {isa = PBXBuildFile; fileRef = D4925A671E2F0ACB00F134AA /* Cube.txt */; };
@@ -83,6 +83,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D423FAD21E2F32CA00BC5CAE /* Plane.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Plane.txt; sourceTree = "<group>"; };
 		D42A52351E2EA1AA005817E1 /* macOS Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "macOS Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D42A52511E2EA25F005817E1 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D42A52521E2EA25F005817E1 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -93,7 +94,6 @@
 		D432DD951E2F1A3900D669DD /* Window.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
 		D432DD971E2F2E7D00D669DD /* Pyramid.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Pyramid.txt; path = Resources/Pyramid.txt; sourceTree = SOURCE_ROOT; };
 		D432DD9B1E2F2FDC00D669DD /* Prism.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Prism.txt; path = Resources/Prism.txt; sourceTree = SOURCE_ROOT; };
-		D432DD9D1E2F313400D669DD /* Plane.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Plane.txt; sourceTree = "<group>"; };
 		D4721B7D1E2EA5FF00B717DC /* MKView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKView.swift; sourceTree = "<group>"; };
 		D4925A621E2F035F00F134AA /* MKCamera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKCamera.swift; sourceTree = "<group>"; };
 		D4925A671E2F0ACB00F134AA /* Cube.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Cube.txt; path = Resources/Cube.txt; sourceTree = SOURCE_ROOT; };
@@ -146,15 +146,16 @@
 		D42A52501E2EA254005817E1 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D423FAD21E2F32CA00BC5CAE /* Plane.txt */,
 				D42A52641E2EA2E3005817E1 /* Base.lproj */,
 				D42A52551E2EA26D005817E1 /* Assets.xcassets */,
 				D42A52571E2EA26D005817E1 /* Info.plist */,
 				D4925A671E2F0ACB00F134AA /* Cube.txt */,
 				D432DD971E2F2E7D00D669DD /* Pyramid.txt */,
 				D432DD9B1E2F2FDC00D669DD /* Prism.txt */,
-				D432DD9D1E2F313400D669DD /* Plane.txt */,
 			);
 			name = "Supporting Files";
+			path = ../Resources;
 			sourceTree = "<group>";
 		};
 		D42A52641E2EA2E3005817E1 /* Base.lproj */ = {
@@ -281,7 +282,7 @@
 				D432DD9C1E2F2FDC00D669DD /* Prism.txt in Resources */,
 				D42A52671E2EA2E3005817E1 /* Main.storyboard in Resources */,
 				D42A52581E2EA26D005817E1 /* Assets.xcassets in Resources */,
-				D432DD9E1E2F313400D669DD /* Plane.txt in Resources */,
+				D423FAD31E2F32CA00BC5CAE /* Plane.txt in Resources */,
 				D4925A681E2F0ACB00F134AA /* Cube.txt in Resources */,
 				D432DD981E2F2E7D00D669DD /* Pyramid.txt in Resources */,
 			);
