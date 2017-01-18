@@ -22,10 +22,10 @@ class ViewController: NSViewController {
         }
     }
     
-    func keyDown(keyCode: UInt16) {
-        theView.keyDown(keyCode: keyCode)
+    override func viewDidAppear() {
+        super.viewDidAppear()
+        theView.becomeFirstResponder()
     }
-    
 
 }
 

@@ -76,16 +76,17 @@ struct MKGeometry {
                 }
                 
                 faces.append(face)
-            } else if parts.count == 5 && parts[0] == "c" {
+            } else if parts.count == 6 && parts[0] == "c" {
                 let part = parts[1]
                 let index = part.index(part.startIndex, offsetBy: 1)
                 let str = part.substring(from: index)
 
                 let r = Double(parts[2])!
-                let g = Double(parts[2])!
-                let b = Double(parts[2])!
+                let g = Double(parts[3])!
+                let b = Double(parts[4])!
+                let a = Double(parts[5])!
                 
-                let color = NSColor(red: CGFloat(r) / 255.0, green: CGFloat(g) / 255.0, blue: CGFloat(b) / 255.0, alpha: 0.1)
+                let color = NSColor(red: CGFloat(r) / 255.0, green: CGFloat(g) / 255.0, blue: CGFloat(b) / 255.0, alpha: CGFloat(a) / 255.0)
                 
                 colors[Int(str)! - 1] = color
             }

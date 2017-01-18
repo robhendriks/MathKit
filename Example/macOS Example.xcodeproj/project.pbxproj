@@ -14,7 +14,6 @@
 		D42A52671E2EA2E3005817E1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D42A52651E2EA2E3005817E1 /* Main.storyboard */; };
 		D42A52861E2EA438005817E1 /* MathKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D42A52771E2EA36F005817E1 /* MathKit.framework */; };
 		D42A52871E2EA438005817E1 /* MathKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D42A52771E2EA36F005817E1 /* MathKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		D432DD961E2F1A3A00D669DD /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = D432DD951E2F1A3900D669DD /* Window.swift */; };
 		D432DD981E2F2E7D00D669DD /* Pyramid.txt in Resources */ = {isa = PBXBuildFile; fileRef = D432DD971E2F2E7D00D669DD /* Pyramid.txt */; };
 		D432DD9C1E2F2FDC00D669DD /* Prism.txt in Resources */ = {isa = PBXBuildFile; fileRef = D432DD9B1E2F2FDC00D669DD /* Prism.txt */; };
 		D4721B7E1E2EA5FF00B717DC /* MKView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4721B7D1E2EA5FF00B717DC /* MKView.swift */; };
@@ -91,7 +90,6 @@
 		D42A52571E2EA26D005817E1 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Resources/Info.plist; sourceTree = SOURCE_ROOT; };
 		D42A52661E2EA2E3005817E1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Main.storyboard; sourceTree = "<group>"; };
 		D42A526F1E2EA36F005817E1 /* MathKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MathKit.xcodeproj; path = ../MathKit.xcodeproj; sourceTree = "<group>"; };
-		D432DD951E2F1A3900D669DD /* Window.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
 		D432DD971E2F2E7D00D669DD /* Pyramid.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Pyramid.txt; path = Resources/Pyramid.txt; sourceTree = SOURCE_ROOT; };
 		D432DD9B1E2F2FDC00D669DD /* Prism.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Prism.txt; path = Resources/Prism.txt; sourceTree = SOURCE_ROOT; };
 		D4721B7D1E2EA5FF00B717DC /* MKView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKView.swift; sourceTree = "<group>"; };
@@ -137,7 +135,6 @@
 				D4925A621E2F035F00F134AA /* MKCamera.swift */,
 				D4925A691E2F0B7500F134AA /* MKGeometry.swift */,
 				D4721B7D1E2EA5FF00B717DC /* MKView.swift */,
-				D432DD951E2F1A3900D669DD /* Window.swift */,
 				D42A52501E2EA254005817E1 /* Supporting Files */,
 			);
 			path = Source;
@@ -300,7 +297,6 @@
 				D42A52531E2EA25F005817E1 /* AppDelegate.swift in Sources */,
 				D4925A631E2F035F00F134AA /* MKCamera.swift in Sources */,
 				D4721B7E1E2EA5FF00B717DC /* MKView.swift in Sources */,
-				D432DD961E2F1A3A00D669DD /* Window.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

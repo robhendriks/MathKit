@@ -9,24 +9,33 @@
 import Cocoa
 import MathKit
 
-@IBDesignable
 class MKView: NSView {
     
-    static let bgColor = NSColor(red: 100.0 / 255.0, green: 149.0 / 255.0, blue: 237.0 / 255.0, alpha: 1.0)
-    
+    static let bgColor = NSColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1.0)
     static let cubeStroke = NSColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
     static let cubeFill = NSColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.1)
     
     var cube: MKGeometry
     var camera: MKCamera
     
+    var keys = [UInt16: Bool]()
+    var speed = Vector()
+    
+    override var acceptsFirstResponder: Bool {
+        return true
+    }
+    
     required init?(coder: NSCoder) {
-        cube = MKGeometry.fromFile(Bundle.main.path(forResource: "Cube", ofType: "txt")!)!
+        cube = MKGeometry.fromFile(Bundle.main.path(forResource: "Plane", ofType: "txt")!)!
         cube.translate(-50, -50, -100)
         
         camera = MKCamera(Vector(0, 0, 10), Vector(0, 0, 0))
     
         super.init(coder: coder)
+        
+        Timer.scheduledTimer(withTimeInterval: 1000.0 / 60.0 / 1000.0, repeats: true) { timer in
+            self.update()
+        }
     }
     
     override func draw(_ dirtyRect: NSRect) {
@@ -46,7 +55,7 @@ class MKView: NSView {
             matrix[i, 2] = -matrix[i, 2]
         }
         
-        outer: for face in cube.faces {
+        outer: for (i, face) in cube.faces.enumerated() {
             var points = [Vector]()
             
             for i in face {
@@ -57,11 +66,42 @@ class MKView: NSView {
                 points.append(Vector(matrix[i, 0], matrix[i, 1], matrix[i, 2]))
             }
             
-            drawFace(points)
+            drawFace(points, cube.colors[i])
         }
     }
     
-    func drawFace(_ points: [Vector]) {
+    func update() {
+        if let _ = keys[2] {
+            speed.x = 2
+        } else if let _ = keys[0] {
+            speed.x = -2
+        } else {
+            speed.x = 0
+        }
+        
+        if let _ = keys[13] {
+            speed.y = 2
+        } else if let _ = keys[1] {
+            speed.y = -2
+        } else {
+            speed.y = 0
+        }
+        
+        if let _ = keys[12] {
+            speed.z = 2
+        } else if let _ = keys[14] {
+            speed.z = -2
+        } else {
+            speed.z = 0
+        }
+        
+        if speed.x != 0 || speed.y != 0 || speed.z != 0 {
+            cube.translate(speed)
+            setNeedsDisplay(bounds)
+        }
+    }
+    
+    func drawFace(_ points: [Vector], _ color: NSColor?) {
         let path = NSBezierPath()
         
         for i in 0..<points.count {
@@ -75,48 +115,31 @@ class MKView: NSView {
         }
         
         MKView.cubeStroke.setStroke()
-        MKView.cubeFill.setFill()
+        
+        if let color = color {
+            color.setFill()
+        } else {
+            MKView.cubeFill.setFill()
+        }
         
         path.close()
         path.stroke()
         path.fill()
     }
     
-    func keyDown(keyCode: UInt16) {
-        switch keyCode {
-        case 13: // W
-            cube.translate(0, 10, 0)
-            break
-        case 1: // S
-            cube.translate(0, -10, 0)
-            break
-        case 0: // A
-            cube.translate(-10, 0, 0)
-            break
-        case 2: // D
-            cube.translate(10, 0, 0)
-            break
-        case 12: // Q
-            cube.translate(0, 0, 10)
-            break
-        case 14: // E
-            cube.translate(0, 0, -10)
-            break
-        case 18: // OEM1
-            camera.fieldOfView = 60.0
-            break
-        case 19: // OEM2
-            camera.fieldOfView = 90.0
-            break
-        case 20: // OEM3
-            camera.fieldOfView = 120.0
-            break
-        default:
-            Swift.print(keyCode)
+    override func keyDown(with event: NSEvent) {
+        if let _ = keys[event.keyCode] {
             return
         }
-        
-        setNeedsDisplay(bounds)
+        keys[event.keyCode] = true
+        Swift.print("gained \(event.keyCode)")
+    }
+    
+    override func keyUp(with event: NSEvent) {
+        if let _ = keys[event.keyCode] {
+            keys.removeValue(forKey: event.keyCode)
+            Swift.print("lost \(event.keyCode)")
+        }
     }
     
 }
