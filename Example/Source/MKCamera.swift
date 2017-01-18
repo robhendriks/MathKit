@@ -27,7 +27,7 @@ class MKCamera {
         }
     }
     
-    public var fieldOfView = 90.0 {
+    public var fieldOfView = 120.0 {
         didSet {
             build()
         }

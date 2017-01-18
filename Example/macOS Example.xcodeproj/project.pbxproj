@@ -22,6 +22,7 @@
 		D4925A6A1E2F0B7500F134AA /* MKGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4925A691E2F0B7500F134AA /* MKGeometry.swift */; };
 		D4C36F0B1E2F4C3F00B49E47 /* MKWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C36F0A1E2F4C3F00B49E47 /* MKWindow.swift */; };
 		D4C36F0D1E2F4E5F00B49E47 /* MKWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C36F0C1E2F4E5F00B49E47 /* MKWindowController.swift */; };
+		D4E173611E2F594A00023636 /* Steve.txt in Resources */ = {isa = PBXBuildFile; fileRef = D4E173601E2F594A00023636 /* Steve.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +101,7 @@
 		D4925A691E2F0B7500F134AA /* MKGeometry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKGeometry.swift; sourceTree = "<group>"; };
 		D4C36F0A1E2F4C3F00B49E47 /* MKWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKWindow.swift; sourceTree = "<group>"; };
 		D4C36F0C1E2F4E5F00B49E47 /* MKWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKWindowController.swift; sourceTree = "<group>"; };
+		D4E173601E2F594A00023636 /* Steve.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Steve.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +158,7 @@
 				D432DD971E2F2E7D00D669DD /* Pyramid.txt */,
 				D432DD9B1E2F2FDC00D669DD /* Prism.txt */,
 				D423FAD21E2F32CA00BC5CAE /* Plane.txt */,
+				D4E173601E2F594A00023636 /* Steve.txt */,
 			);
 			name = "Supporting Files";
 			path = ../Resources;
@@ -287,6 +290,7 @@
 				D42A52581E2EA26D005817E1 /* Assets.xcassets in Resources */,
 				D423FAD31E2F32CA00BC5CAE /* Plane.txt in Resources */,
 				D4925A681E2F0ACB00F134AA /* Cube.txt in Resources */,
+				D4E173611E2F594A00023636 /* Steve.txt in Resources */,
 				D432DD981E2F2E7D00D669DD /* Pyramid.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -27,13 +27,13 @@ class MKView: NSView {
     
     required init?(coder: NSCoder) {
         cube = MKGeometry.fromFile(Bundle.main.path(forResource: "Cube", ofType: "txt")!)!
-        cube.translate(-50, -50, -100)
+        cube.translate(-25, -33, -100)
         
         camera = MKCamera(Vector(0, 0, 10), Vector(0, 0, 0))
     
         super.init(coder: coder)
         
-        Timer.scheduledTimer(withTimeInterval: 1000.0 / 30.0 / 1000.0, repeats: true) { timer in
+        Timer.scheduledTimer(withTimeInterval: 1000.0 / 60.0 / 1000.0, repeats: true) { timer in
             self.update()
         }
     }
@@ -72,7 +72,7 @@ class MKView: NSView {
     
     public func load(_ name: String) {
         cube = MKGeometry.fromFile(Bundle.main.path(forResource: name, ofType: "txt")!)!
-        cube.translate(-50, -50, -100)
+        cube.translate(-25, -33, -100)
         
         speed = Vector.zero
         

@@ -43,5 +43,8 @@ class ViewController: NSViewController {
         theView.load("Plane")
     }
     
+    @IBAction func steveSelected(_ sender: Any) {
+        theView.load("Steve")
+    }
 }
 
