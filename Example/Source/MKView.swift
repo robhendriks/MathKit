@@ -21,7 +21,7 @@ class MKView: NSView {
     var camera: MKCamera
     
     required init?(coder: NSCoder) {
-        cube = MKGeometry.fromFile(Bundle.main.path(forResource: "Plane", ofType: "txt")!)!
+        cube = MKGeometry.fromFile(Bundle.main.path(forResource: "Cube", ofType: "txt")!)!
         cube.translate(-50, -50, -100)
         
         camera = MKCamera(Vector(0, 0, 10), Vector(0, 0, 0))

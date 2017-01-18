@@ -7,14 +7,17 @@
 //
 
 import MathKit
+import Cocoa
 
 struct MKGeometry {
     
     private(set) public var faces: [[Int]]
     private(set) public var matrix: Matrix
+    private(set) public var colors = [Int: NSColor]()
     
-    public init(_ vertices: [Vector], _ faces: [[Int]]) {
+    public init(_ vertices: [Vector], _ faces: [[Int]], _ colors: [Int: NSColor]) {
         self.faces = faces
+        self.colors = colors
         
         matrix = Matrix(4, vertices.count)
         
@@ -48,6 +51,7 @@ struct MKGeometry {
     public static func parse(_ lines: [String]) -> MKGeometry? {
         var vertices = [Vector]()
         var faces = [[Int]]()
+        var colors = [Int: NSColor]()
         
         for line in lines {
             if line.isEmpty {
@@ -72,9 +76,21 @@ struct MKGeometry {
                 }
                 
                 faces.append(face)
+            } else if parts.count == 5 && parts[0] == "c" {
+                let part = parts[1]
+                let index = part.index(part.startIndex, offsetBy: 1)
+                let str = part.substring(from: index)
+
+                let r = Double(parts[2])!
+                let g = Double(parts[2])!
+                let b = Double(parts[2])!
+                
+                let color = NSColor(red: CGFloat(r) / 255.0, green: CGFloat(g) / 255.0, blue: CGFloat(b) / 255.0, alpha: 0.1)
+                
+                colors[Int(str)! - 1] = color
             }
         }
         
-        return MKGeometry(vertices, faces)
+        return MKGeometry(vertices, faces, colors)
     }
 }
