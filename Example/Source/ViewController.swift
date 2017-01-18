@@ -12,6 +12,7 @@ import MathKit
 class ViewController: NSViewController {
 
     @IBOutlet weak var theView: MKView!
+    @IBOutlet weak var fovSlider: NSSlider!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +46,10 @@ class ViewController: NSViewController {
     
     @IBAction func steveSelected(_ sender: Any) {
         theView.load("Steve")
+    }
+    
+    @IBAction func fovChanged(_ sender: Any) {
+        theView.camera.fieldOfView = Double(fovSlider.floatValue)
     }
 }
 

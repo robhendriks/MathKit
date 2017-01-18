@@ -27,7 +27,7 @@ class MKCamera {
         }
     }
     
-    public var fieldOfView = 120.0 {
+    public var fieldOfView = 90.0 {
         didSet {
             build()
         }
@@ -67,7 +67,8 @@ class MKCamera {
         
         let near = 1.0
         let far = 100.0
-        let scale = near * tan(((M_PI / 180.0) * fieldOfView) * 0.5);
+        let a = fieldOfView * .pi / 180.0
+        let scale = near * tan(a * 0.5)
         
         // Camera matrix
         matrix = Matrix([

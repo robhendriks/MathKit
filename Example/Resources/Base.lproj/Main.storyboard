@@ -693,79 +693,99 @@
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="avN-UX-PDE" customClass="MKView" customModule="macOS_Example" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                                         <subviews>
-                                            <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U46-sy-2SE">
-                                                <rect key="frame" x="61" y="20" width="359" height="21"/>
+                                            <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wen-UD-WlS">
+                                                <rect key="frame" x="61" y="20" width="359" height="44"/>
                                                 <subviews>
-                                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="g2c-4z-DAN">
-                                                        <rect key="frame" x="-6" y="-7" width="73" height="32"/>
-                                                        <buttonCell key="cell" type="push" title="Cube" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ThF-sJ-6c0">
-                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                            <font key="font" metaFont="system"/>
-                                                        </buttonCell>
+                                                    <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KHv-TN-It6">
+                                                        <rect key="frame" x="-2" y="27" width="363" height="19"/>
+                                                        <sliderCell key="cell" state="on" alignment="left" minValue="60" maxValue="120" doubleValue="90" tickMarkPosition="above" sliderType="linear" id="eC4-Uy-L5d"/>
                                                         <connections>
-                                                            <action selector="cubeSelected:" target="XfG-lQ-9wD" id="TjN-oV-hxV"/>
+                                                            <action selector="fovChanged:" target="XfG-lQ-9wD" id="mw0-VR-uF1"/>
                                                         </connections>
-                                                    </button>
-                                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="B8p-3P-RFb">
-                                                        <rect key="frame" x="63" y="-7" width="90" height="32"/>
-                                                        <buttonCell key="cell" type="push" title="Pyramid" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3kv-KN-FAd">
-                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                            <font key="font" metaFont="system"/>
-                                                        </buttonCell>
-                                                        <connections>
-                                                            <action selector="pyramidSelected:" target="XfG-lQ-9wD" id="CkA-PH-JWa"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tu9-sz-nnL">
-                                                        <rect key="frame" x="149" y="-7" width="75" height="32"/>
-                                                        <buttonCell key="cell" type="push" title="Prism" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="OBf-BL-QFN">
-                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                            <font key="font" metaFont="system"/>
-                                                        </buttonCell>
-                                                        <connections>
-                                                            <action selector="prismSelected:" target="XfG-lQ-9wD" id="sNB-wN-Tqu"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9hO-gt-hw0">
-                                                        <rect key="frame" x="220" y="-7" width="74" height="32"/>
-                                                        <buttonCell key="cell" type="push" title="Plane" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="NQa-a7-xzu">
-                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                            <font key="font" metaFont="system"/>
-                                                        </buttonCell>
-                                                        <connections>
-                                                            <action selector="planeSelected:" target="XfG-lQ-9wD" id="1TL-ad-BxX"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7ad-Wz-phC">
-                                                        <rect key="frame" x="290" y="-7" width="75" height="32"/>
-                                                        <buttonCell key="cell" type="push" title="Steve" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="WFa-Uj-XCQ">
-                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                            <font key="font" metaFont="system"/>
-                                                        </buttonCell>
-                                                        <connections>
-                                                            <action selector="steveSelected:" target="XfG-lQ-9wD" id="Kvo-hT-ZVL"/>
-                                                        </connections>
-                                                    </button>
+                                                    </slider>
+                                                    <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U46-sy-2SE">
+                                                        <rect key="frame" x="0.0" y="0.0" width="359" height="21"/>
+                                                        <subviews>
+                                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="g2c-4z-DAN">
+                                                                <rect key="frame" x="-6" y="-7" width="73" height="32"/>
+                                                                <buttonCell key="cell" type="push" title="Cube" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ThF-sJ-6c0">
+                                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                    <font key="font" metaFont="system"/>
+                                                                </buttonCell>
+                                                                <connections>
+                                                                    <action selector="cubeSelected:" target="XfG-lQ-9wD" id="TjN-oV-hxV"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="B8p-3P-RFb">
+                                                                <rect key="frame" x="63" y="-7" width="90" height="32"/>
+                                                                <buttonCell key="cell" type="push" title="Pyramid" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3kv-KN-FAd">
+                                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                    <font key="font" metaFont="system"/>
+                                                                </buttonCell>
+                                                                <connections>
+                                                                    <action selector="pyramidSelected:" target="XfG-lQ-9wD" id="CkA-PH-JWa"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tu9-sz-nnL">
+                                                                <rect key="frame" x="149" y="-7" width="75" height="32"/>
+                                                                <buttonCell key="cell" type="push" title="Prism" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="OBf-BL-QFN">
+                                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                    <font key="font" metaFont="system"/>
+                                                                </buttonCell>
+                                                                <connections>
+                                                                    <action selector="prismSelected:" target="XfG-lQ-9wD" id="sNB-wN-Tqu"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9hO-gt-hw0">
+                                                                <rect key="frame" x="220" y="-7" width="74" height="32"/>
+                                                                <buttonCell key="cell" type="push" title="Plane" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="NQa-a7-xzu">
+                                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                    <font key="font" metaFont="system"/>
+                                                                </buttonCell>
+                                                                <connections>
+                                                                    <action selector="planeSelected:" target="XfG-lQ-9wD" id="1TL-ad-BxX"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7ad-Wz-phC">
+                                                                <rect key="frame" x="290" y="-7" width="75" height="32"/>
+                                                                <buttonCell key="cell" type="push" title="Steve" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="WFa-Uj-XCQ">
+                                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                    <font key="font" metaFont="system"/>
+                                                                </buttonCell>
+                                                                <connections>
+                                                                    <action selector="steveSelected:" target="XfG-lQ-9wD" id="Kvo-hT-ZVL"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <visibilityPriorities>
+                                                            <integer value="1000"/>
+                                                            <integer value="1000"/>
+                                                            <integer value="1000"/>
+                                                            <integer value="1000"/>
+                                                            <integer value="1000"/>
+                                                        </visibilityPriorities>
+                                                        <customSpacing>
+                                                            <real value="3.4028234663852886e+38"/>
+                                                            <real value="3.4028234663852886e+38"/>
+                                                            <real value="3.4028234663852886e+38"/>
+                                                            <real value="3.4028234663852886e+38"/>
+                                                            <real value="3.4028234663852886e+38"/>
+                                                        </customSpacing>
+                                                    </stackView>
                                                 </subviews>
                                                 <visibilityPriorities>
-                                                    <integer value="1000"/>
-                                                    <integer value="1000"/>
-                                                    <integer value="1000"/>
                                                     <integer value="1000"/>
                                                     <integer value="1000"/>
                                                 </visibilityPriorities>
                                                 <customSpacing>
                                                     <real value="3.4028234663852886e+38"/>
                                                     <real value="3.4028234663852886e+38"/>
-                                                    <real value="3.4028234663852886e+38"/>
-                                                    <real value="3.4028234663852886e+38"/>
-                                                    <real value="3.4028234663852886e+38"/>
                                                 </customSpacing>
                                             </stackView>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="U46-sy-2SE" secondAttribute="bottom" constant="20" id="T1o-Vq-Ne1"/>
-                                            <constraint firstItem="U46-sy-2SE" firstAttribute="centerX" secondItem="avN-UX-PDE" secondAttribute="centerX" id="zbt-jw-jH1"/>
+                                            <constraint firstAttribute="bottom" secondItem="wen-UD-WlS" secondAttribute="bottom" constant="20" id="aZZ-QC-OmH"/>
+                                            <constraint firstItem="wen-UD-WlS" firstAttribute="centerX" secondItem="avN-UX-PDE" secondAttribute="centerX" id="u8N-hR-cGZ"/>
                                         </constraints>
                                     </customView>
                                 </subviews>
@@ -785,6 +805,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="fovSlider" destination="KHv-TN-It6" id="sBx-Mx-Oh6"/>
                         <outlet property="theView" destination="avN-UX-PDE" id="ati-0Y-7yo"/>
                     </connections>
                 </viewController>
