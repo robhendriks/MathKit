@@ -12,7 +12,11 @@ import XCTest
 class MatrixTestCase: XCTestCase {
     
     func testExample() {
-        let m = Matrix()
+        let m = Matrix([
+            [0, 3, 5],
+            [5, 5, 2]
+        ])
+        print(m.array)
     }
     
 }
