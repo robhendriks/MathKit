@@ -4,6 +4,7 @@
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+        <capability name="stacking Non-gravity area distributions on NSStackView" minToolsVersion="7.0" minSystemVersion="10.11"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -663,9 +664,9 @@
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
-                <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
-                    <window key="window" title="Lineaire Algebra" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
-                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+                <windowController id="B8D-0N-5wS" customClass="MKWindowController" customModule="macOS_Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <window key="window" title="Lineaire Algebra" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA" customClass="MKWindow" customModule="macOS_Example" customModuleProvider="target">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" unifiedTitleAndToolbar="YES"/>
                         <rect key="contentRect" x="196" y="240" width="480" height="320"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
                         <value key="minSize" type="size" width="800" height="600"/>
@@ -686,15 +687,89 @@
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="avN-UX-PDE" customClass="MKView" customModule="macOS_Example" customModuleProvider="target">
+                            <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" material="appearanceBased" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="2Fx-Em-5ss">
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
-                            </customView>
+                                <subviews>
+                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="avN-UX-PDE" customClass="MKView" customModule="macOS_Example" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                                        <subviews>
+                                            <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U46-sy-2SE">
+                                                <rect key="frame" x="96" y="20" width="288" height="21"/>
+                                                <subviews>
+                                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="g2c-4z-DAN">
+                                                        <rect key="frame" x="-6" y="-7" width="73" height="32"/>
+                                                        <buttonCell key="cell" type="push" title="Cube" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ThF-sJ-6c0">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                        <connections>
+                                                            <action selector="cubeSelected:" target="XfG-lQ-9wD" id="TjN-oV-hxV"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="B8p-3P-RFb">
+                                                        <rect key="frame" x="63" y="-7" width="90" height="32"/>
+                                                        <buttonCell key="cell" type="push" title="Pyramid" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3kv-KN-FAd">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                        <connections>
+                                                            <action selector="pyramidSelected:" target="XfG-lQ-9wD" id="CkA-PH-JWa"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tu9-sz-nnL">
+                                                        <rect key="frame" x="149" y="-7" width="75" height="32"/>
+                                                        <buttonCell key="cell" type="push" title="Prism" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="OBf-BL-QFN">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                        <connections>
+                                                            <action selector="prismSelected:" target="XfG-lQ-9wD" id="sNB-wN-Tqu"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9hO-gt-hw0">
+                                                        <rect key="frame" x="220" y="-7" width="74" height="32"/>
+                                                        <buttonCell key="cell" type="push" title="Plane" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="NQa-a7-xzu">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                        <connections>
+                                                            <action selector="planeSelected:" target="XfG-lQ-9wD" id="1TL-ad-BxX"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <visibilityPriorities>
+                                                    <integer value="1000"/>
+                                                    <integer value="1000"/>
+                                                    <integer value="1000"/>
+                                                    <integer value="1000"/>
+                                                </visibilityPriorities>
+                                                <customSpacing>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                </customSpacing>
+                                            </stackView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="U46-sy-2SE" secondAttribute="bottom" constant="20" id="T1o-Vq-Ne1"/>
+                                            <constraint firstItem="U46-sy-2SE" firstAttribute="centerX" secondItem="avN-UX-PDE" secondAttribute="centerX" id="zbt-jw-jH1"/>
+                                        </constraints>
+                                    </customView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="avN-UX-PDE" firstAttribute="leading" secondItem="2Fx-Em-5ss" secondAttribute="leading" id="1zp-Qx-Zam"/>
+                                    <constraint firstItem="avN-UX-PDE" firstAttribute="top" secondItem="2Fx-Em-5ss" secondAttribute="top" id="Dcx-N6-LhS"/>
+                                    <constraint firstAttribute="bottom" secondItem="avN-UX-PDE" secondAttribute="bottom" id="eIc-y6-Rsq"/>
+                                    <constraint firstAttribute="trailing" secondItem="avN-UX-PDE" secondAttribute="trailing" id="paK-Bg-bKp"/>
+                                </constraints>
+                            </visualEffectView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="avN-UX-PDE" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="0Hd-g7-mIA"/>
-                            <constraint firstAttribute="bottom" secondItem="avN-UX-PDE" secondAttribute="bottom" id="cfq-Oy-VuW"/>
-                            <constraint firstItem="avN-UX-PDE" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="eQ7-KR-3UV"/>
-                            <constraint firstAttribute="trailing" secondItem="avN-UX-PDE" secondAttribute="trailing" id="njw-Wb-IgD"/>
+                            <constraint firstAttribute="trailing" secondItem="2Fx-Em-5ss" secondAttribute="trailing" id="7vR-3i-Sw4"/>
+                            <constraint firstItem="2Fx-Em-5ss" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="JtG-lR-UJf"/>
+                            <constraint firstAttribute="bottom" secondItem="2Fx-Em-5ss" secondAttribute="bottom" id="LOh-hS-dGy"/>
+                            <constraint firstItem="2Fx-Em-5ss" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="vl4-B8-fL2"/>
                         </constraints>
                     </view>
                     <connections>

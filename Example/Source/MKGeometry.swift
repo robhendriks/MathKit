@@ -38,6 +38,30 @@ struct MKGeometry {
         return translate(vector.x, vector.y, vector.z)
     }
     
+    public mutating func scale(_ x: Double, _ y: Double, _ z: Double) -> MKGeometry {
+        matrix = matrix.scale(x, y, z)
+        return self
+    }
+    
+    public mutating func scale(_ vector: Vector) -> MKGeometry {
+        return scale(vector.x, vector.y, vector.z)
+    }
+    
+    public mutating func rotateX(_ angle: Double) -> MKGeometry {
+        matrix = matrix.rotateX(angle)
+        return self
+    }
+    
+    public mutating func rotateY(_ angle: Double) -> MKGeometry {
+        matrix = matrix.rotateY(angle)
+        return self
+    }
+    
+    public mutating func rotateZ(_ angle: Double) -> MKGeometry {
+        matrix = matrix.rotateZ(angle)
+        return self
+    }
+    
     public static func fromFile(_ path: String) -> MKGeometry? {
         do {
             let data = try String(contentsOfFile: path)

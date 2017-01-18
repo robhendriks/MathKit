@@ -107,6 +107,51 @@ public struct Matrix {
         return self * scaleMatrix
     }
     
+    public func getRotationX(_ angle: Double) -> Matrix {
+        let a = (M_PI / 180.0) * angle
+    
+        return Matrix([
+            [1, 0, 0, 0],
+            [0, cos(a), -sin(a), 0],
+            [0, sin(a), cos(a), 0],
+            [0, 0, 0, 1]
+        ])
+    }
+    
+    public func getRotationY(_ angle: Double) -> Matrix {
+        let a = (M_PI / 180.0) * angle
+        
+        return Matrix([
+            [cos(a), 0, -sin(a), 0],
+            [0, 1, 0, 0],
+            [sin(a), 0, cos(a), 0],
+            [0, 0, 0, 1]
+        ])
+    }
+    
+    public func getRotationZ(_ angle: Double) -> Matrix {
+        let a = (M_PI / 180.0) * angle
+        
+        return Matrix([
+            [cos(a), -sin(a), 0, 0],
+            [sin(a), cos(a), 0, 0],
+            [0, 0, 1, 0],
+            [0, 0, 0, 1]
+        ])
+    }
+    
+    public func rotateX(_ angle: Double) -> Matrix {
+        return self * getRotationX(angle)
+    }
+    
+    public func rotateY(_ angle: Double) -> Matrix {
+        return self * getRotationY(angle)
+    }
+    
+    public func rotateZ(_ angle: Double) -> Matrix {
+        return self * getRotationZ(angle)
+    }
+    
 }
 
 extension Matrix: CustomStringConvertible {

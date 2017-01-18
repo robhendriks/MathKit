@@ -26,14 +26,14 @@ class MKView: NSView {
     }
     
     required init?(coder: NSCoder) {
-        cube = MKGeometry.fromFile(Bundle.main.path(forResource: "Plane", ofType: "txt")!)!
+        cube = MKGeometry.fromFile(Bundle.main.path(forResource: "Cube", ofType: "txt")!)!
         cube.translate(-50, -50, -100)
         
         camera = MKCamera(Vector(0, 0, 10), Vector(0, 0, 0))
     
         super.init(coder: coder)
         
-        Timer.scheduledTimer(withTimeInterval: 1000.0 / 60.0 / 1000.0, repeats: true) { timer in
+        Timer.scheduledTimer(withTimeInterval: 1000.0 / 30.0 / 1000.0, repeats: true) { timer in
             self.update()
         }
     }
@@ -41,8 +41,8 @@ class MKView: NSView {
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
         
-        MKView.bgColor.setFill()
-        NSRectFill(dirtyRect)
+//        MKView.bgColor.setFill()
+//        NSRectFill(dirtyRect)
         
         let width = Double(dirtyRect.size.width)
         let _ = Double(dirtyRect.size.height)
@@ -68,6 +68,10 @@ class MKView: NSView {
             
             drawFace(points, cube.colors[i])
         }
+    }
+    
+    public func load(_ name: String) {
+        
     }
     
     func update() {

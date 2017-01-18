@@ -27,5 +27,21 @@ class ViewController: NSViewController {
         theView.becomeFirstResponder()
     }
 
+    @IBAction func cubeSelected(_ sender: Any) {
+        theView.load("Cube")
+    }
+    
+    @IBAction func pyramidSelected(_ sender: Any) {
+        theView.load("Pyramid")
+    }
+    
+    @IBAction func prismSelected(_ sender: Any) {
+        theView.load("Prism")
+    }
+    
+    @IBAction func planeSelected(_ sender: Any) {
+        theView.load("Plane")
+    }
+    
 }
 
