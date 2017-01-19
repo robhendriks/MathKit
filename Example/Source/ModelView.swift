@@ -165,6 +165,8 @@ class ModelView: NSView {
         geometry!.translate(-center.x, -center.y, center.z)
         buildGuide()
         
+        camera.screenSize = bounds.size
+        
         move = Vector.zero
         rotate = Vector.zero
         
@@ -227,9 +229,7 @@ class ModelView: NSView {
             redraw = true
         }
         if rotate.x != 0 || rotate.y != 0 || rotate.z != 0 {
-            geometry?.rotateX(rotate.x)
-            geometry?.rotateY(rotate.y)
-            geometry?.rotateZ(rotate.z)
+            geometry?.rotate(geometry!.matrix.center, Vector(1, 0, 0), 0.001)
             redraw = true
         }
         
