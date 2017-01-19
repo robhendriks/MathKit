@@ -91,7 +91,7 @@ class MKCamera {
     
     public func build() {
 //        matrix = MKCamera.fps(Vector(0, 0, -100), 0, 00)
-        matrix = MKCamera.lookAt(Vector(0, 0, 100), Vector(0, 0, -100), Vector.up)
+        matrix = MKCamera.lookAt(eye, lookAt, up)
         
         // Projection Matrix
         let ratio = Double(screenSize.width / screenSize.height)

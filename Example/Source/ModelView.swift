@@ -15,14 +15,13 @@ class ModelView: NSView {
     static let cubeStroke = NSColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
     static let cubeFill = NSColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.1)
     
-    var cube: MKGeometry!
+    var geometry: MKGeometry?
     var camera: MKCamera!
+    var guide: Matrix?
     
     var keys = [UInt16: Bool]()
     var move = Vector.zero
     var rotate = Vector.zero
-    
-    var axis = Matrix(4, 6)
     
     var colorFaces: Bool = true {
         didSet {
@@ -37,9 +36,7 @@ class ModelView: NSView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         
-        camera = MKCamera(Vector(0, 0, 50), Vector(0, 0, 0), bounds.size)
-        
-        load("Cube")
+        camera = MKCamera(Vector(0, 0, 100), Vector(0, 0, 0), bounds.size)
         
         Timer.scheduledTimer(withTimeInterval: 1000.0 / 60.0 / 1000.0, repeats: true) { timer in
             self.update()
@@ -48,18 +45,43 @@ class ModelView: NSView {
     
     override func viewDidEndLiveResize() {
         super.viewDidEndLiveResize()
+        
         camera.screenSize = bounds.size
+        setNeedsDisplay(bounds)
     }
     
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
         
-        drawAxis(dirtyRect)
+        drawGuide(dirtyRect)
         drawGeometry(dirtyRect)
     }
     
-    func drawAxis(_ dirtyRect: NSRect) {
-        let matrix = getMatrix(axis, dirtyRect.size)
+    func buildGuide() {
+        guard let center = geometry?.matrix.center else {
+            return
+        }
+        
+        let x = center.x
+        let y = center.y
+        let z = center.z
+        
+        guide = Matrix([
+            [x - 50, y, z, 0],
+            [x + 50, y, z, 0],
+            [x, y - 50, z, 0],
+            [x, y + 50, z, 0],
+            [x, y, z - 50, 0],
+            [x, y, z + 50, 0],
+        ])
+    }
+    
+    func drawGuide(_ dirtyRect: NSRect) {
+        guard let guide = guide else {
+            return
+        }
+        
+        let matrix = getMatrix(guide, dirtyRect.size)
 
         // Draw x-axis
         if matrix[0, 3] >= 0 && matrix[1, 3] >= 0 {
@@ -94,9 +116,13 @@ class ModelView: NSView {
     }
     
     func drawGeometry(_ dirtyRect: NSRect) {
-        let matrix = getMatrix(cube.matrix, dirtyRect.size)
+        guard let geometry = geometry else {
+            return
+        }
         
-        outer: for (i, face) in cube.faces.enumerated() {
+        let matrix = getMatrix(geometry.matrix, dirtyRect.size)
+        
+        outer: for (i, face) in geometry.faces.enumerated() {
             var points = [Vector]()
             
             for i in face {
@@ -106,7 +132,7 @@ class ModelView: NSView {
                 points.append(Vector(matrix[i, 0], matrix[i, 1], matrix[i, 2]))
             }
             
-            drawFace(points, cube.colors[i])
+            drawFace(points, geometry.colors[i])
         }
     }
     
@@ -125,40 +151,28 @@ class ModelView: NSView {
     }
     
     public func load(_ name: String) {
-        cube = MKGeometry.fromFile(Bundle.main.path(forResource: name, ofType: "txt")!)!
+        guard let file = Bundle.main.path(forResource: name, ofType: "3d") else {
+            return
+        }
         
-        let center = cube.matrix.center
-        cube.translate(-center.x, -center.y, center.z)
-        buildAxis()
+        geometry = MKGeometry.fromFile(file)
+        
+        guard let _ = geometry else {
+            return
+        }
+        
+        let center = geometry!.matrix.center
+        geometry!.translate(-center.x, -center.y, center.z)
+        buildGuide()
         
         move = Vector.zero
         rotate = Vector.zero
         
-        keys.removeAll(keepingCapacity: false)
-        
         setNeedsDisplay(bounds)
     }
     
-    func buildAxis() {
-        let center = cube.matrix.center
-        
-        let x = center.x
-        let y = center.y
-        let z = center.z
-        
-        axis = Matrix([
-            [x - 50, y, z, 0],
-            [x + 50, y, z, 0],
-            [x, y - 50, z, 0],
-            [x, y + 50, z, 0],
-            [x, y, z - 50, 0],
-            [x, y, z + 50, 0],
-        ])
-        
-        Swift.print(axis)
-    }
-    
     func update() {
+        // Translate x
         if let _ = keys[2] {
             move.x = 2
         } else if let _ = keys[0] {
@@ -167,6 +181,7 @@ class ModelView: NSView {
             move.x = 0
         }
         
+        // Translate y
         if let _ = keys[13] {
             move.y = 2
         } else if let _ = keys[1] {
@@ -175,6 +190,7 @@ class ModelView: NSView {
             move.y = 0
         }
         
+        // Translate z
         if let _ = keys[12] {
             move.z = 2
         } else if let _ = keys[14] {
@@ -183,25 +199,42 @@ class ModelView: NSView {
             move.z = 0
         }
         
-//        if let _ = keys[123] {
-//            rotate.y = 1
-//        } else if let _ = keys[124] {
-//            rotate.y = -1
-//        } else {
-//            rotate.y = 0
-//        }
-//        
-//        if let _ = keys[126] {
-//            rotate.z = 1
-//        } else if let _ = keys[125] {
-//            rotate.z = -1
-//        } else {
-//            rotate.z = 0
-//        }
+        // Rotate x
+        if let _ = keys[86] {
+            rotate.x = 1
+        } else {
+            rotate.x = 0
+        }
+        
+        // Rotate y
+        if let _ = keys[87] {
+            rotate.y = 1
+        } else {
+            rotate.y = 0
+        }
+        
+        // Rotate z
+        if let _ = keys[88] {
+            rotate.z = 1
+        } else {
+            rotate.z = 0
+        }
+        
+        var redraw = false
         
         if move.x != 0 || move.y != 0 || move.z != 0 {
-            cube.translate(move)
-            buildAxis()
+            geometry?.translate(move)
+            redraw = true
+        }
+        if rotate.x != 0 || rotate.y != 0 || rotate.z != 0 {
+            geometry?.rotateX(rotate.x)
+            geometry?.rotateY(rotate.y)
+            geometry?.rotateZ(rotate.z)
+            redraw = true
+        }
+        
+        if redraw {
+            buildGuide()
             setNeedsDisplay(bounds)
         }
     }
@@ -233,6 +266,8 @@ class ModelView: NSView {
     }
     
     override func keyDown(with event: NSEvent) {
+        Swift.print(event.keyCode)
+        
         if let _ = keys[event.keyCode] {
             return
         }
