@@ -11,6 +11,16 @@ import Cocoa
 class MKWindowController: NSWindowController {
     
     override func windowDidLoad() {
-        window?.appearance = NSAppearance(named: NSAppearanceNameVibrantDark)
+//        window?.appearance = NSAppearance(named: NSAppearanceNameVibrantDark)
+        window?.titleVisibility = .hidden
+    }
+    
+    @IBAction func collapseSidebar(_ sender: Any) {
+        guard let splitViewController = contentViewController as? NSSplitViewController else {
+            return
+        }
+        
+        let splitViewItem = splitViewController.splitViewItems[0]
+        splitViewItem.animator().isCollapsed = !splitViewItem.animator().isCollapsed
     }
 }

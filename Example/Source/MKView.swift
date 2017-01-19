@@ -32,7 +32,7 @@ class MKView: NSView {
         
         load("Cube")
         
-        Timer.scheduledTimer(withTimeInterval: 1000.0 / 30.0 / 1000.0, repeats: true) { timer in
+        Timer.scheduledTimer(withTimeInterval: 1000.0 / 60.0 / 1000.0, repeats: true) { timer in
             self.update()
         }
     }
@@ -126,12 +126,8 @@ class MKView: NSView {
         
         if move.x != 0 || move.y != 0 || move.z != 0 {
             cube.translate(move)
+            setNeedsDisplay(bounds)
         }
-        if rotate.x != 0 || rotate.y != 0 || rotate.z != 0 {
-//            cube.rotate(cube.matrix.center, Vector(0, 0, 1), 0.0001)
-        }
-        
-        setNeedsDisplay(bounds)
     }
     
     func drawFace(_ points: [Vector], _ color: NSColor?) {

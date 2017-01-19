@@ -50,6 +50,7 @@ class ViewController: NSViewController {
     
     @IBAction func fovChanged(_ sender: Any) {
         theView.camera.fieldOfView = Double(fovSlider.floatValue)
+        theView.setNeedsDisplay(theView.bounds)
     }
 }
 
