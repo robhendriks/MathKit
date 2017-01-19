@@ -9,9 +9,9 @@
 import Cocoa
 import MathKit
 
-class MKView: NSView {
+class ModelView: NSView {
     
-    static let bgColor = NSColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1.0)
+    static let bgColor = NSColor(red: 100 / 255, green: 149 / 255, blue: 237 / 255, alpha: 1.0)
     static let cubeStroke = NSColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
     static let cubeFill = NSColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.1)
     
@@ -21,6 +21,12 @@ class MKView: NSView {
     var keys = [UInt16: Bool]()
     var move = Vector.zero
     var rotate = Vector.zero
+    
+    var colorFaces: Bool = true {
+        didSet {
+            setNeedsDisplay(bounds)
+        }
+    }
     
     override var acceptsFirstResponder: Bool {
         return true
@@ -39,9 +45,6 @@ class MKView: NSView {
     
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
-        
-//        MKView.bgColor.setFill()
-//        NSRectFill(dirtyRect)
         
         let width = Double(dirtyRect.size.width)
         let _ = Double(dirtyRect.size.height)
@@ -143,12 +146,12 @@ class MKView: NSView {
             }
         }
         
-        MKView.cubeStroke.setStroke()
+        ModelView.cubeStroke.setStroke()
         
-        if let color = color {
+        if let color = color, colorFaces {
             color.setFill()
         } else {
-            MKView.cubeFill.setFill()
+            ModelView.cubeFill.setFill()
         }
         
         path.close()

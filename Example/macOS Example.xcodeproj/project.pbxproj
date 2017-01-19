@@ -7,9 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D423FAD31E2F32CA00BC5CAE /* Plane.txt in Resources */ = {isa = PBXBuildFile; fileRef = D423FAD21E2F32CA00BC5CAE /* Plane.txt */; };
+		D423FAD31E2F32CA00BC5CAE /* Paper Plane.txt in Resources */ = {isa = PBXBuildFile; fileRef = D423FAD21E2F32CA00BC5CAE /* Paper Plane.txt */; };
 		D42A52531E2EA25F005817E1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42A52511E2EA25F005817E1 /* AppDelegate.swift */; };
-		D42A52541E2EA25F005817E1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42A52521E2EA25F005817E1 /* ViewController.swift */; };
 		D42A52581E2EA26D005817E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D42A52551E2EA26D005817E1 /* Assets.xcassets */; };
 		D42A52671E2EA2E3005817E1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D42A52651E2EA2E3005817E1 /* Main.storyboard */; };
 		D42A52861E2EA438005817E1 /* MathKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D42A52771E2EA36F005817E1 /* MathKit.framework */; };
@@ -21,7 +20,8 @@
 		D434C6971E31371200D91744 /* Models.plist in Resources */ = {isa = PBXBuildFile; fileRef = D434C6961E31371200D91744 /* Models.plist */; };
 		D434C6991E313F5E00D91744 /* ModelCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D434C6981E313F5E00D91744 /* ModelCategory.swift */; };
 		D434C69B1E313F6400D91744 /* ModelItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D434C69A1E313F6400D91744 /* ModelItem.swift */; };
-		D4721B7E1E2EA5FF00B717DC /* MKView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4721B7D1E2EA5FF00B717DC /* MKView.swift */; };
+		D44D83F11E314DE1008FD60D /* ColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44D83F01E314DE1008FD60D /* ColorView.swift */; };
+		D4721B7E1E2EA5FF00B717DC /* ModelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4721B7D1E2EA5FF00B717DC /* ModelView.swift */; };
 		D4925A631E2F035F00F134AA /* MKCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4925A621E2F035F00F134AA /* MKCamera.swift */; };
 		D4925A681E2F0ACB00F134AA /* Cube.txt in Resources */ = {isa = PBXBuildFile; fileRef = D4925A671E2F0ACB00F134AA /* Cube.txt */; };
 		D4925A6A1E2F0B7500F134AA /* MKGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4925A691E2F0B7500F134AA /* MKGeometry.swift */; };
@@ -90,10 +90,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		D423FAD21E2F32CA00BC5CAE /* Plane.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Plane.txt; sourceTree = "<group>"; };
+		D423FAD21E2F32CA00BC5CAE /* Paper Plane.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Paper Plane.txt"; sourceTree = "<group>"; };
 		D42A52351E2EA1AA005817E1 /* macOS Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "macOS Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D42A52511E2EA25F005817E1 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D42A52521E2EA25F005817E1 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		D42A52551E2EA26D005817E1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Resources/Assets.xcassets; sourceTree = SOURCE_ROOT; };
 		D42A52571E2EA26D005817E1 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Resources/Info.plist; sourceTree = SOURCE_ROOT; };
 		D42A52661E2EA2E3005817E1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Main.storyboard; sourceTree = "<group>"; };
@@ -105,7 +104,8 @@
 		D434C6961E31371200D91744 /* Models.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Models.plist; sourceTree = "<group>"; };
 		D434C6981E313F5E00D91744 /* ModelCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelCategory.swift; sourceTree = "<group>"; };
 		D434C69A1E313F6400D91744 /* ModelItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelItem.swift; sourceTree = "<group>"; };
-		D4721B7D1E2EA5FF00B717DC /* MKView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKView.swift; sourceTree = "<group>"; };
+		D44D83F01E314DE1008FD60D /* ColorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorView.swift; sourceTree = "<group>"; };
+		D4721B7D1E2EA5FF00B717DC /* ModelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelView.swift; sourceTree = "<group>"; };
 		D4925A621E2F035F00F134AA /* MKCamera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKCamera.swift; sourceTree = "<group>"; };
 		D4925A671E2F0ACB00F134AA /* Cube.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Cube.txt; path = Resources/Cube.txt; sourceTree = SOURCE_ROOT; };
 		D4925A691E2F0B7500F134AA /* MKGeometry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKGeometry.swift; sourceTree = "<group>"; };
@@ -147,14 +147,14 @@
 			isa = PBXGroup;
 			children = (
 				D42A52511E2EA25F005817E1 /* AppDelegate.swift */,
-				D42A52521E2EA25F005817E1 /* ViewController.swift */,
+				D44D83F01E314DE1008FD60D /* ColorView.swift */,
 				D4925A621E2F035F00F134AA /* MKCamera.swift */,
 				D4925A691E2F0B7500F134AA /* MKGeometry.swift */,
-				D4721B7D1E2EA5FF00B717DC /* MKView.swift */,
 				D4C36F0A1E2F4C3F00B49E47 /* MKWindow.swift */,
 				D4C36F0C1E2F4E5F00B49E47 /* MKWindowController.swift */,
 				D434C68F1E3132B000D91744 /* ModelsViewController.swift */,
 				D434C6941E3132BC00D91744 /* ModelViewController.swift */,
+				D4721B7D1E2EA5FF00B717DC /* ModelView.swift */,
 				D434C6981E313F5E00D91744 /* ModelCategory.swift */,
 				D434C69A1E313F6400D91744 /* ModelItem.swift */,
 				D42A52501E2EA254005817E1 /* Supporting Files */,
@@ -171,7 +171,7 @@
 				D4925A671E2F0ACB00F134AA /* Cube.txt */,
 				D432DD971E2F2E7D00D669DD /* Pyramid.txt */,
 				D432DD9B1E2F2FDC00D669DD /* Prism.txt */,
-				D423FAD21E2F32CA00BC5CAE /* Plane.txt */,
+				D423FAD21E2F32CA00BC5CAE /* Paper Plane.txt */,
 				D4E173601E2F594A00023636 /* Steve.txt */,
 				D434C6961E31371200D91744 /* Models.plist */,
 			);
@@ -304,7 +304,7 @@
 				D42A52671E2EA2E3005817E1 /* Main.storyboard in Resources */,
 				D434C6971E31371200D91744 /* Models.plist in Resources */,
 				D42A52581E2EA26D005817E1 /* Assets.xcassets in Resources */,
-				D423FAD31E2F32CA00BC5CAE /* Plane.txt in Resources */,
+				D423FAD31E2F32CA00BC5CAE /* Paper Plane.txt in Resources */,
 				D4925A681E2F0ACB00F134AA /* Cube.txt in Resources */,
 				D4E173611E2F594A00023636 /* Steve.txt in Resources */,
 				D432DD981E2F2E7D00D669DD /* Pyramid.txt in Resources */,
@@ -318,8 +318,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D44D83F11E314DE1008FD60D /* ColorView.swift in Sources */,
 				D434C6901E3132B000D91744 /* ModelsViewController.swift in Sources */,
-				D42A52541E2EA25F005817E1 /* ViewController.swift in Sources */,
 				D434C69B1E313F6400D91744 /* ModelItem.swift in Sources */,
 				D434C6951E3132BC00D91744 /* ModelViewController.swift in Sources */,
 				D4C36F0D1E2F4E5F00B49E47 /* MKWindowController.swift in Sources */,
@@ -327,7 +327,7 @@
 				D4925A6A1E2F0B7500F134AA /* MKGeometry.swift in Sources */,
 				D42A52531E2EA25F005817E1 /* AppDelegate.swift in Sources */,
 				D4925A631E2F035F00F134AA /* MKCamera.swift in Sources */,
-				D4721B7E1E2EA5FF00B717DC /* MKView.swift in Sources */,
+				D4721B7E1E2EA5FF00B717DC /* ModelView.swift in Sources */,
 				D434C6991E313F5E00D91744 /* ModelCategory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

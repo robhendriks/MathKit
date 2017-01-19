@@ -12,7 +12,6 @@ class ModelsViewController: NSViewController {
     
     var folderImage: NSImage?
     var documentImage: NSImage?
-    
     var categories = [ModelCategory]()
     
     override func viewDidLoad() {
@@ -47,6 +46,25 @@ class ModelsViewController: NSViewController {
         }
     }
     
+    @IBAction func didSelectItem(_ sender: Any) {
+        guard let outlineView = sender as? NSOutlineView else {
+            return
+        }
+
+        let item = outlineView.item(atRow: outlineView.selectedRow)
+
+        guard let model = item as? ModelItem else {
+            return
+        }
+        
+        guard let splitViewController = parent as? NSSplitViewController,
+            let modelViewController = splitViewController.splitViewItems[1].viewController as? ModelViewController else {
+            return
+        }
+        
+        modelViewController.modelView.load(model.name)
+        
+    }
 }
 
 extension ModelsViewController: NSOutlineViewDataSource {

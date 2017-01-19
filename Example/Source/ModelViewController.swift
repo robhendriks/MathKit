@@ -10,6 +10,8 @@ import Cocoa
 
 class ModelViewController: NSViewController {
     
+    @IBOutlet weak var modelView: ModelView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
