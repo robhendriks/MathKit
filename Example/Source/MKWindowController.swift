@@ -31,7 +31,7 @@ class MKWindowController: NSWindowController {
         }
         
         let index = Double(segmentedControl.selectedSegment)
-        let fov = 120.0 - (index * 30.0)
+        let fov = 60.0 + (index * 30.0)
         
         if let modelView = modelViewController.modelView {
             modelView.camera.fieldOfView = fov

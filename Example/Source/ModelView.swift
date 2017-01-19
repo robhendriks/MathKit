@@ -16,11 +16,13 @@ class ModelView: NSView {
     static let cubeFill = NSColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.1)
     
     var cube: MKGeometry!
-    var camera: MKCamera
+    var camera: MKCamera!
     
     var keys = [UInt16: Bool]()
     var move = Vector.zero
     var rotate = Vector.zero
+    
+    var axis = Matrix(4, 6)
     
     var colorFaces: Bool = true {
         didSet {
@@ -33,8 +35,9 @@ class ModelView: NSView {
     }
     
     required init?(coder: NSCoder) {
-        camera = MKCamera(Vector(0, 0, 10), Vector(0, 0, 0))
         super.init(coder: coder)
+        
+        camera = MKCamera(Vector(0, 0, 50), Vector(0, 0, 0), bounds.size)
         
         load("Cube")
         
@@ -43,25 +46,60 @@ class ModelView: NSView {
         }
     }
     
+    override func viewDidEndLiveResize() {
+        super.viewDidEndLiveResize()
+        camera.screenSize = bounds.size
+    }
+    
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
         
-        let width = Double(dirtyRect.size.width)
-        let _ = Double(dirtyRect.size.height)
-        
-        var matrix = cube.matrix * camera.matrix * camera.projection
-        
-        for i in 0..<matrix.rows {
-            matrix[i, 0] = (width / 2) + ((matrix[i, 0] + 1) / matrix[i, 3]) * width * 0.5
-            matrix[i, 1] = (width / 2) + ((matrix[i, 1] + 1) / matrix[i, 3]) * width * 0.5
-            matrix[i, 2] = -matrix[i, 2]
+        drawAxis(dirtyRect)
+        drawGeometry(dirtyRect)
+    }
+    
+    func drawAxis(_ dirtyRect: NSRect) {
+        let matrix = getMatrix(axis, dirtyRect.size)
+
+        // Draw x-axis
+        if matrix[0, 3] >= 0 && matrix[1, 3] >= 0 {
+            let path = NSBezierPath()
+            path.move(to: NSPoint(x: matrix[0, 0], y: matrix[0, 1]))
+            path.line(to: NSPoint(x: matrix[1, 0], y: matrix[1, 1]))
+            
+            NSColor.red.setStroke()
+            path.stroke()
         }
+        
+        // Draw y-axis
+        if matrix[2, 3] >= 0 && matrix[3, 3] >= 0 {
+            let path = NSBezierPath()
+            path.move(to: NSPoint(x: matrix[2, 0], y: matrix[2, 1]))
+            path.line(to: NSPoint(x: matrix[3, 0], y: matrix[3, 1]))
+            
+            NSColor.green.setStroke()
+            path.stroke()
+        }
+        
+        // Draw z-axis
+        if matrix[4, 3] >= 0 && matrix[5, 3] >= 0 {
+            let path = NSBezierPath()
+            path.move(to: NSPoint(x: matrix[4, 0], y: matrix[4, 1]))
+            path.line(to: NSPoint(x: matrix[5, 0], y: matrix[5, 1]))
+            
+            NSColor.blue.setStroke()
+            path.stroke()
+        }
+
+    }
+    
+    func drawGeometry(_ dirtyRect: NSRect) {
+        let matrix = getMatrix(cube.matrix, dirtyRect.size)
         
         outer: for (i, face) in cube.faces.enumerated() {
             var points = [Vector]()
             
             for i in face {
-//                matrix[i, 0] >= 0 && matrix[i, 1] >= 0 && matrix[i, 2] >= 0 && 
                 guard matrix[i, 3] >= 0 else {
                     continue outer
                 }
@@ -72,11 +110,26 @@ class ModelView: NSView {
         }
     }
     
+    func getMatrix(_ matrix: Matrix, _ size: CGSize) -> Matrix {
+        var result = matrix * camera.matrix * camera.projection
+        
+        let width = Double(size.width)
+        let height = Double(size.height)
+        
+        for i in 0..<result.rows {
+            result[i, 0] = (result[i, 0] * width) / (2.0 * result[i, 3]) + width / 2.0;
+            result[i, 1] = (result[i, 1] * height) / (2.0 * result[i, 3]) + height / 2.0;
+        }
+        
+        return result
+    }
+    
     public func load(_ name: String) {
         cube = MKGeometry.fromFile(Bundle.main.path(forResource: name, ofType: "txt")!)!
         
         let center = cube.matrix.center
         cube.translate(-center.x, -center.y, center.z)
+        buildAxis()
         
         move = Vector.zero
         rotate = Vector.zero
@@ -84,6 +137,25 @@ class ModelView: NSView {
         keys.removeAll(keepingCapacity: false)
         
         setNeedsDisplay(bounds)
+    }
+    
+    func buildAxis() {
+        let center = cube.matrix.center
+        
+        let x = center.x
+        let y = center.y
+        let z = center.z
+        
+        axis = Matrix([
+            [x - 50, y, z, 0],
+            [x + 50, y, z, 0],
+            [x, y - 50, z, 0],
+            [x, y + 50, z, 0],
+            [x, y, z - 50, 0],
+            [x, y, z + 50, 0],
+        ])
+        
+        Swift.print(axis)
     }
     
     func update() {
@@ -111,24 +183,25 @@ class ModelView: NSView {
             move.z = 0
         }
         
-        if let _ = keys[123] {
-            rotate.y = 1
-        } else if let _ = keys[124] {
-            rotate.y = -1
-        } else {
-            rotate.y = 0
-        }
-        
-        if let _ = keys[126] {
-            rotate.z = 1
-        } else if let _ = keys[125] {
-            rotate.z = -1
-        } else {
-            rotate.z = 0
-        }
+//        if let _ = keys[123] {
+//            rotate.y = 1
+//        } else if let _ = keys[124] {
+//            rotate.y = -1
+//        } else {
+//            rotate.y = 0
+//        }
+//        
+//        if let _ = keys[126] {
+//            rotate.z = 1
+//        } else if let _ = keys[125] {
+//            rotate.z = -1
+//        } else {
+//            rotate.z = 0
+//        }
         
         if move.x != 0 || move.y != 0 || move.z != 0 {
             cube.translate(move)
+            buildAxis()
             setNeedsDisplay(bounds)
         }
     }
@@ -164,14 +237,13 @@ class ModelView: NSView {
             return
         }
         keys[event.keyCode] = true
-        Swift.print("gained \(event.keyCode)")
     }
     
     override func keyUp(with event: NSEvent) {
         if let _ = keys[event.keyCode] {
             keys.removeValue(forKey: event.keyCode)
-            Swift.print("lost \(event.keyCode)")
         }
     }
+    
     
 }

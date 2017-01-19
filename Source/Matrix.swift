@@ -14,29 +14,43 @@ public struct Matrix {
     private(set) public var array: [Double]
     
     public var center: Vector {
+        let min = self.min
+        let max = self.max
+        return Vector((max.x + min.x) / 2.0, (max.y + min.y) / 2.0, (max.z + min.z) / 2.0)
+    }
+    
+    public var min: Vector {
         assert(columns >= 4)
         assert(rows >= 1)
         
-        var minX = DBL_MAX
-        var minY = DBL_MAX
-        var minZ = DBL_MAX
-        
-        var maxX = DBL_MIN
-        var maxY = DBL_MIN
-        var maxZ = DBL_MIN
+        var x = self[0, 0]
+        var y = self[0, 1]
+        var z = self[0, 2]
         
         for i in 0..<rows {
-            minX = (self[i, 0] < minX) ? self[i, 0] : minX
-            maxX = (self[i, 0] > maxX) ? self[i, 0] : maxX
-            
-            minY = (self[i, 1] < minY) ? self[i, 1] : minY
-            maxY = (self[i, 1] > maxY) ? self[i, 1] : maxY
-            
-            minZ = (self[i, 2] < minZ) ? self[i, 2] : minZ
-            maxZ = (self[i, 2] > maxZ) ? self[i, 2] : maxZ
+            x = (self[i, 0] < x) ? self[i, 0] : x
+            y = (self[i, 1] < y) ? self[i, 1] : y
+            z = (self[i, 2] < z) ? self[i, 2] : z
+        }
+
+        return Vector(x, y, z)
+    }
+    
+    public var max: Vector {
+        assert(columns >= 4)
+        assert(rows >= 1)
+        
+        var x = self[0, 0]
+        var y = self[0, 1]
+        var z = self[0, 2]
+        
+        for i in 0..<rows {
+            x = (self[i, 0] > x) ? self[i, 0] : x
+            y = (self[i, 1] > y) ? self[i, 1] : y
+            z = (self[i, 2] > z) ? self[i, 2] : z
         }
         
-        return Vector((maxX + minX) / 2.0, (maxY + minY) / 2.0, (maxZ + minZ) / 2.0)
+        return Vector(x, y, z)
     }
     
     public init(_ columns: Int, _ rows: Int) {
@@ -142,7 +156,7 @@ public struct Matrix {
     }
     
     public func getRotationX(_ angle: Double) -> Matrix {
-        let a = angle * .pi / 180.0
+        let a = angle.toRadians
         
         return Matrix([
             [1, 0, 0, 0],
@@ -153,7 +167,7 @@ public struct Matrix {
     }
     
     public func getRotationY(_ angle: Double) -> Matrix {
-        let a = angle * .pi / 180.0
+        let a = angle.toRadians
         
         return Matrix([
             [cos(a), 0, -sin(a), 0],
@@ -164,7 +178,7 @@ public struct Matrix {
     }
     
     public func getRotationZ(_ angle: Double) -> Matrix {
-        let a = angle * .pi / 180.0
+        let a = angle.toRadians
         
         return Matrix([
             [cos(a), -sin(a), 0, 0],
