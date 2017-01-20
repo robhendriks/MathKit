@@ -86,7 +86,7 @@ class ModelView: NSView {
             return
         }
         
-        let matrix = getMatrix(guide * scale * translate, dirtyRect.size)
+        let matrix = naberekening(guide * scale * translate, dirtyRect.size)
 
         // Draw x-axis
         if matrix[0, 3] >= 0 && matrix[1, 3] >= 0 {
@@ -125,7 +125,7 @@ class ModelView: NSView {
             return
         }
         
-        let matrix = getMatrix(geometry.matrix * scale * translate * rotate, dirtyRect.size) //* rotate
+        let matrix = naberekening(geometry.matrix * scale * translate * rotate, dirtyRect.size) //* rotate
         
         outer: for (i, face) in geometry.faces.enumerated() {
             var points = [Vector]()
@@ -167,7 +167,7 @@ class ModelView: NSView {
         path.fill()
     }
     
-    func getMatrix(_ matrix: Matrix, _ size: CGSize) -> Matrix {
+    func naberekening(_ matrix: Matrix, _ size: CGSize) -> Matrix {
         var result = matrix * camera.matrix * camera.projection
         
         let width = Double(size.width)
@@ -236,16 +236,22 @@ class ModelView: NSView {
         
         // Rotate x
         if let _ = keys[18] {
+//            let product = geometry!.matrix * scale * translate * rotate
+//            rotate = rotate.rotate(Vector(1, 0, 0), product.center, 1)
             rotate = rotate.rotateX(1)
         }
         
         // Rotate y
         if let _ = keys[19] {
+//            let product = geometry!.matrix * scale * translate * rotate
+//            rotate = rotate.rotate(Vector(0, 1, 0), product.center, 1)
             rotate = rotate.rotateY(1)
         }
         
         // Rotate z
         if let _ = keys[20] {
+//            let product = geometry!.matrix * scale * translate * rotate
+//            rotate = rotate.rotate(Vector(0, 0, 1), product.center, 1)
             rotate = rotate.rotateZ(1)
         }
         
@@ -254,8 +260,6 @@ class ModelView: NSView {
     }
     
     override func keyDown(with event: NSEvent) {
-        Swift.print(event.keyCode)
-        
         if let _ = keys[event.keyCode] {
             return
         }
