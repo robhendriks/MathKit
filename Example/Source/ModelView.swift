@@ -49,6 +49,8 @@ class ModelView: NSView {
         super.viewDidEndLiveResize()
         
         camera.screenSize = bounds.size
+        
+        buildGuide()
         setNeedsDisplay(bounds)
     }
     
@@ -59,12 +61,30 @@ class ModelView: NSView {
         drawGeometry(dirtyRect)
     }
     
+    func resetCamera() {
+        guard let matrix = geometry?.matrix else {
+            return
+        }
+        
+        let product = matrix * translate * rotate * scale
+        let center = product.center
+        
+        let x = center.x
+        let y = center.y
+        let z = center.z
+        
+        camera.euler = Vector.zero
+        camera.lookAt = Vector(x, y, z)
+        camera.eye = Vector(x, y, z + 100)
+        camera.screenSize = bounds.size
+    }
+    
     func buildGuide() {
         guard let matrix = geometry?.matrix else {
             return
         }
         
-        let product = matrix * scale * translate * rotate
+        let product = matrix * translate * rotate * scale
         let center = product.center
         
         let x = center.x
@@ -86,7 +106,7 @@ class ModelView: NSView {
             return
         }
         
-        let matrix = naberekening(guide * scale * translate, dirtyRect.size)
+        let matrix = naberekening(guide * translate * rotate * scale, dirtyRect.size)
 
         // Draw x-axis
         if matrix[0, 3] >= 0 && matrix[1, 3] >= 0 {
@@ -125,7 +145,7 @@ class ModelView: NSView {
             return
         }
         
-        let matrix = naberekening(geometry.matrix * scale * translate * rotate, dirtyRect.size) //* rotate
+        let matrix = naberekening(geometry.matrix * translate * rotate * scale, dirtyRect.size)
         
         outer: for (i, face) in geometry.faces.enumerated() {
             var points = [Vector]()
@@ -198,32 +218,72 @@ class ModelView: NSView {
         rotate = Matrix.identity
         scale = Matrix.identity
         
+        resetCamera()
         buildGuide()
-        
-        camera.screenSize = bounds.size
-        
         setNeedsDisplay(bounds)
     }
     
     func update() {
-        // Translate x
+        // FPS cam pitch(y)
+        if let _ = keys[126] {
+            camera.euler.y += 1
+        } else if let _ = keys[125] {
+            camera.euler.y -= 1
+        }
+        
+        // FPS cam yaw(z)
+        if let _ = keys[123] {
+            camera.euler.z += 1
+        } else if let _ = keys[124] {
+            camera.euler.z -= 1
+        }
+        
+        // FPS cam translate x
         if let _ = keys[2] {
-            translate = translate.translate(2, 0, 0)
+            camera.eye.x += 1
         } else if let _ = keys[0] {
+            camera.eye.x -= 1
+        }
+        
+        // FPS cam translate y
+        if let _ = keys[14] {
+            camera.eye.y += 1
+        } else if let _ = keys[12] {
+            camera.eye.y -= 1
+        }
+        
+        // FPS cam translate z
+        if let _ = keys[1] {
+            camera.eye.z += 1
+        } else if let _ = keys[13] {
+            camera.eye.z -= 1
+        }
+        
+        // Scale up/down
+        if let _ = keys[24] {
+            scale = scale.scale(1.1, 1.1, 1.1)
+        } else if let _ = keys[27] {
+            scale = scale.scale(0.9, 0.9, 0.9)
+        }
+        
+        // Translate x
+        if let _ = keys[88] {
+            translate = translate.translate(2, 0, 0)
+        } else if let _ = keys[86] {
             translate = translate.translate(-2, 0, 0)
         }
         
         // Translate y
-        if let _ = keys[13] {
+        if let _ = keys[91] {
             translate = translate.translate(0, 2, 0)
-        } else if let _ = keys[1] {
+        } else if let _ = keys[84] {
             translate = translate.translate(0, -2, 0)
         }
         
         // Translate z
-        if let _ = keys[12] {
+        if let _ = keys[83] {
             translate = translate.translate(0, 0, 2)
-        } else if let _ = keys[14] {
+        } else if let _ = keys[85] {
             translate = translate.translate(0, 0, -2)
         }
         
@@ -236,22 +296,16 @@ class ModelView: NSView {
         
         // Rotate x
         if let _ = keys[18] {
-//            let product = geometry!.matrix * scale * translate * rotate
-//            rotate = rotate.rotate(Vector(1, 0, 0), product.center, 1)
             rotate = rotate.rotateX(1)
         }
         
         // Rotate y
         if let _ = keys[19] {
-//            let product = geometry!.matrix * scale * translate * rotate
-//            rotate = rotate.rotate(Vector(0, 1, 0), product.center, 1)
             rotate = rotate.rotateY(1)
         }
         
         // Rotate z
         if let _ = keys[20] {
-//            let product = geometry!.matrix * scale * translate * rotate
-//            rotate = rotate.rotate(Vector(0, 0, 1), product.center, 1)
             rotate = rotate.rotateZ(1)
         }
         
@@ -264,6 +318,7 @@ class ModelView: NSView {
             return
         }
         keys[event.keyCode] = true
+        Swift.print(event.keyCode)
     }
     
     override func keyUp(with event: NSEvent) {
