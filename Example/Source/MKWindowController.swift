@@ -12,6 +12,7 @@ class MKWindowController: NSWindowController {
     
     override func windowDidLoad() {
         window?.titleVisibility = .hidden
+        window?.appearance = NSAppearance(named: NSAppearanceNameVibrantDark)
     }
     
     @IBAction func collapseSidebar(_ sender: Any) {
@@ -47,5 +48,25 @@ class MKWindowController: NSWindowController {
         }
         
         modelView.colorFaces = !modelView.colorFaces
+    }
+    
+    @IBAction func cameraChanged(_ sender: Any) {
+        guard let segmentedControl = sender as? NSSegmentedControl,
+            let splitViewController = contentViewController as? NSSplitViewController,
+            let modelViewController = splitViewController.splitViewItems[1].viewController as? ModelViewController,
+            let modelView = modelViewController.modelView else {
+                return
+        }
+        
+        switch segmentedControl.selectedSegment {
+        case 0:
+            modelView.camera.cameraMode = .firstPerson
+            break
+        case 1:
+            modelView.camera.cameraMode = .lookAt
+            break
+        default:
+            break
+        }
     }
 }

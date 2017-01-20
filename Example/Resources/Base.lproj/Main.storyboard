@@ -694,9 +694,9 @@
                                     <size key="minSize" width="100" height="27"/>
                                     <size key="maxSize" width="119" height="28"/>
                                     <segmentedControl key="view" verticalHuggingPriority="750" id="zGA-pU-6oA">
-                                        <rect key="frame" x="0.0" y="14" width="119" height="28"/>
+                                        <rect key="frame" x="0.0" y="14" width="115" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedRounded" trackingMode="selectOne" id="LN7-1U-2Pr">
+                                        <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedSquare" trackingMode="selectOne" id="LN7-1U-2Pr">
                                             <font key="font" metaFont="system"/>
                                             <segments>
                                                 <segment label="60°" width="32" selected="YES"/>
@@ -725,11 +725,31 @@
                                         </connections>
                                     </button>
                                 </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="F92D7727-A991-4AC2-9474-288991A629B6" label="Camera" paletteLabel="Camera" id="JLH-we-7xd">
+                                    <nil key="toolTip"/>
+                                    <size key="minSize" width="57" height="28"/>
+                                    <size key="maxSize" width="104" height="28"/>
+                                    <segmentedControl key="view" verticalHuggingPriority="750" id="s5M-Kv-qmP">
+                                        <rect key="frame" x="0.0" y="14" width="57" height="28"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedSquare" trackingMode="selectOne" id="ua7-nx-lff">
+                                            <font key="font" metaFont="system"/>
+                                            <segments>
+                                                <segment label="1"/>
+                                                <segment label="2" selected="YES" tag="2"/>
+                                            </segments>
+                                        </segmentedCell>
+                                        <connections>
+                                            <action selector="cameraChanged:" target="B8D-0N-5wS" id="oDq-FU-zWa"/>
+                                        </connections>
+                                    </segmentedControl>
+                                </toolbarItem>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
                                 <toolbarItem reference="3KP-z4-9jy"/>
                                 <toolbarItem reference="nRX-MA-1Wh"/>
                                 <toolbarItem reference="R8P-7W-fxy"/>
+                                <toolbarItem reference="JLH-we-7xd"/>
                                 <toolbarItem reference="nRX-MA-1Wh"/>
                                 <toolbarItem reference="CXM-XB-8fn"/>
                             </defaultToolbarItems>

@@ -8,6 +8,23 @@
 
 import MathKit
 
+protocol CameraProtocol {
+    func getMatrix(_ a: Vector, _ b: Vector, _ c: Vector, _ d: Vector, _ screenSize: CGSize) -> Matrix
+}
+
+enum CameraMode: CameraProtocol {
+    case lookAt, firstPerson
+    
+    func getMatrix(_ a: Vector, _ b: Vector, _ c: Vector, _ d: Vector, _ screenSize: CGSize) -> Matrix {
+        switch self {
+        case .firstPerson:
+            return MKCamera.fps(a, d.y, d.z)
+        case .lookAt:
+            return MKCamera.lookAt(a, b, c)
+        }
+    }
+}
+
 class MKCamera {
     public var eye: Vector { didSet { build() } }
     public var lookAt: Vector  { didSet { build() } }
@@ -15,11 +32,13 @@ class MKCamera {
     public var fieldOfView = 60.0  { didSet { build() } }
     public var screenSize: CGSize  { didSet { build() } }
     public var euler: Vector { didSet { build() } }
+    public var cameraMode: CameraMode { didSet { reset() }}
     
     private(set) public var matrix: Matrix
     private(set) public var projection: Matrix
     
     public init(_ eye: Vector, _ lookAt: Vector, _ up: Vector, _ screenSize: CGSize) {
+        self.cameraMode = .lookAt
         self.eye = eye
         self.lookAt = lookAt
         self.up = up
@@ -67,9 +86,13 @@ class MKCamera {
         ])
     }
     
+    public func reset() {
+        // TODO: lol lazy me = lazy
+        build()
+    }
+    
     public func build() {
-//        matrix = MKCamera.fps(eye, euler.y, euler.z)
-        matrix = MKCamera.lookAt(eye, lookAt, up)
+        matrix = cameraMode.getMatrix(eye, lookAt, up, euler, screenSize)
         
         // Projection Matrix
         let ratio = Double(screenSize.width / screenSize.height)
