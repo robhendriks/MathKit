@@ -20,8 +20,10 @@ class ModelView: NSView {
     var guide: Matrix?
     
     var keys = [UInt16: Bool]()
-    var move = Vector.zero
-    var rotate = Vector.zero
+    
+    var translate = Matrix.identity
+    var rotate = Matrix.identity
+    var scale = Matrix.identity
     
     var colorFaces: Bool = true {
         didSet {
@@ -58,9 +60,12 @@ class ModelView: NSView {
     }
     
     func buildGuide() {
-        guard let center = geometry?.matrix.center else {
+        guard let matrix = geometry?.matrix else {
             return
         }
+        
+        let product = matrix * scale * translate * rotate
+        let center = product.center
         
         let x = center.x
         let y = center.y
@@ -81,7 +86,7 @@ class ModelView: NSView {
             return
         }
         
-        let matrix = getMatrix(guide, dirtyRect.size)
+        let matrix = getMatrix(guide * scale * translate, dirtyRect.size)
 
         // Draw x-axis
         if matrix[0, 3] >= 0 && matrix[1, 3] >= 0 {
@@ -120,7 +125,7 @@ class ModelView: NSView {
             return
         }
         
-        let matrix = getMatrix(geometry.matrix, dirtyRect.size)
+        let matrix = getMatrix(geometry.matrix * scale * translate * rotate, dirtyRect.size) //* rotate
         
         outer: for (i, face) in geometry.faces.enumerated() {
             var points = [Vector]()
@@ -134,6 +139,32 @@ class ModelView: NSView {
             
             drawFace(points, geometry.colors[i])
         }
+    }
+    
+    func drawFace(_ points: [Vector], _ color: NSColor?) {
+        let path = NSBezierPath()
+        
+        for i in 0..<points.count {
+            let point = points[i]
+            
+            if i == 0 {
+                path.move(to: NSPoint(x: point.x, y: point.y))
+            } else {
+                path.line(to: NSPoint(x: point.x, y: point.y))
+            }
+        }
+        
+        ModelView.cubeStroke.setStroke()
+        
+        if let color = color, colorFaces {
+            color.setFill()
+        } else {
+            ModelView.cubeFill.setFill()
+        }
+        
+        path.close()
+        path.stroke()
+        path.fill()
     }
     
     func getMatrix(_ matrix: Matrix, _ size: CGSize) -> Matrix {
@@ -162,13 +193,14 @@ class ModelView: NSView {
         }
         
         let center = geometry!.matrix.center
-        geometry!.translate(-center.x, -center.y, center.z)
+        
+        translate = Matrix.identity.translate(-center.x, -center.y, center.z * 2)
+        rotate = Matrix.identity
+        scale = Matrix.identity
+        
         buildGuide()
         
         camera.screenSize = bounds.size
-        
-        move = Vector.zero
-        rotate = Vector.zero
         
         setNeedsDisplay(bounds)
     }
@@ -176,93 +208,49 @@ class ModelView: NSView {
     func update() {
         // Translate x
         if let _ = keys[2] {
-            move.x = 2
+            translate = translate.translate(2, 0, 0)
         } else if let _ = keys[0] {
-            move.x = -2
-        } else {
-            move.x = 0
+            translate = translate.translate(-2, 0, 0)
         }
         
         // Translate y
         if let _ = keys[13] {
-            move.y = 2
+            translate = translate.translate(0, 2, 0)
         } else if let _ = keys[1] {
-            move.y = -2
-        } else {
-            move.y = 0
+            translate = translate.translate(0, -2, 0)
         }
         
         // Translate z
         if let _ = keys[12] {
-            move.z = 2
+            translate = translate.translate(0, 0, 2)
         } else if let _ = keys[14] {
-            move.z = -2
-        } else {
-            move.z = 0
+            translate = translate.translate(0, 0, -2)
+        }
+        
+        // Scale up/down
+        if let _ = keys[24] {
+            scale = scale.scale(1.1, 1.1, 1.1)
+        } else if let _ = keys[27] {
+            scale = scale.scale(0.9, 0.9, 0.9)
         }
         
         // Rotate x
-        if let _ = keys[86] {
-            rotate.x = 1
-        } else {
-            rotate.x = 0
+        if let _ = keys[18] {
+            rotate = rotate.rotateX(1)
         }
         
         // Rotate y
-        if let _ = keys[87] {
-            rotate.y = 1
-        } else {
-            rotate.y = 0
+        if let _ = keys[19] {
+            rotate = rotate.rotateY(1)
         }
         
         // Rotate z
-        if let _ = keys[88] {
-            rotate.z = 1
-        } else {
-            rotate.z = 0
+        if let _ = keys[20] {
+            rotate = rotate.rotateZ(1)
         }
         
-        var redraw = false
-        
-        if move.x != 0 || move.y != 0 || move.z != 0 {
-            geometry?.translate(move)
-            redraw = true
-        }
-        if rotate.x != 0 || rotate.y != 0 || rotate.z != 0 {
-            geometry?.rotate(geometry!.matrix.center, Vector(1, 0, 0), 0.001)
-            redraw = true
-        }
-        
-        if redraw {
-            buildGuide()
-            setNeedsDisplay(bounds)
-        }
-    }
-    
-    func drawFace(_ points: [Vector], _ color: NSColor?) {
-        let path = NSBezierPath()
-        
-        for i in 0..<points.count {
-            let point = points[i]
-            
-            if i == 0 {
-                path.move(to: NSPoint(x: point.x, y: point.y))
-            } else {
-                path.line(to: NSPoint(x: point.x, y: point.y))
-            }
-        }
-        
-        ModelView.cubeStroke.setStroke()
-        
-        if let color = color, colorFaces {
-            color.setFill()
-        } else {
-            ModelView.cubeFill.setFill()
-        }
-        
-        path.close()
-        path.stroke()
-        path.fill()
+        buildGuide()
+        setNeedsDisplay(bounds)
     }
     
     override func keyDown(with event: NSEvent) {

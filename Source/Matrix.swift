@@ -13,6 +13,13 @@ public struct Matrix {
     private(set) public var rows: Int
     private(set) public var array: [Double]
     
+    public static let identity = Matrix([
+        [1, 0, 0, 0],
+        [0, 1, 0, 0],
+        [0, 0, 1, 0],
+        [0, 0, 0, 1]
+    ])
+    
     public var center: Vector {
         let min = self.min
         let max = self.max
