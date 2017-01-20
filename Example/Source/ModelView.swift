@@ -267,23 +267,23 @@ class ModelView: NSView {
         }
         
         // Translate x
-        if let _ = keys[88] {
+        if let _ = keys[37] {
             translate = translate.translate(2, 0, 0)
-        } else if let _ = keys[86] {
+        } else if let _ = keys[38] {
             translate = translate.translate(-2, 0, 0)
         }
         
         // Translate y
-        if let _ = keys[91] {
+        if let _ = keys[34] {
             translate = translate.translate(0, 2, 0)
-        } else if let _ = keys[84] {
+        } else if let _ = keys[40] {
             translate = translate.translate(0, -2, 0)
         }
         
         // Translate z
-        if let _ = keys[83] {
+        if let _ = keys[32] {
             translate = translate.translate(0, 0, 2)
-        } else if let _ = keys[85] {
+        } else if let _ = keys[31] {
             translate = translate.translate(0, 0, -2)
         }
         
